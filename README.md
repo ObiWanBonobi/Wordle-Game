@@ -1,32 +1,103 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Wordle
 
-Welcome,
+[Click on this link to visit the Github page](https://obiwanbonobi.github.io/PP3/)
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+[Click on this link to play the game on Heroku]()
 
-## Reminders
+<br>
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+# Content
 
-## Creating the Heroku app
+- [Introduction](#introduction)
+    * [User experience](#user-experience)
+    * [My vision for the game](#my-vision-for-the-game)
+- [Features](#features)
+- [Future features](#future-features)
+- [Design](#design)
+- [Technologies used](#technologies-used)
+    * [Lucid Flowchart](#lucid-flowchart)
+- [Testing](#testing)
+    * [Python validation](#python-validation)
+    * [Lighthouse test](#lighthouse-test)
+    * [Testing on devices and browsers](#testing-on-devices-and-browsers)
+- [Bug fixes](#bug-fixes)
+- [Deployment](#deployment)
+    * [Github deployment](#github-deployment)
+    * [Heroku deployment](#heroku-deployment)
+- [Credits](#credits)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+<br>
 
-1. `heroku/python`
-2. `heroku/nodejs`
+# Introduction
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+## User experience
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+## My vision for the game
 
-Connect your GitHub repository and deploy as normal.
+<br>
 
-## Constraints
+# Features
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+<br>
 
----
+# Future features
 
-Happy coding!
+<br>
+
+# Design
+
+## Colour scheme
+
+<br>
+
+# Technologies used
+
+## Lucid Flowchart
+
+<br>
+
+# Testing
+
+## Python validation
+
+## Lighthouse test
+
+## Testing on devices and browsers
+
+<br>
+
+# Bug fixes
+
+<br>
+
+# Deployment
+
+## Heroku deployment
+
+To deploy Your App to Heroku, you have to :
+
+## Github deployment
+
+To fork this repository on Github, you have to :
+  - Go to my [GitHub repository called PP3](https://github.com/ObiWanBonobi/PP3).
+  - In the top-right corner of the page, click Fork.
+  - Under "Owner," select the dropdown menu and click an owner for the forked repository.
+  - By default, forks are named the same as their upstream repositories. Optionally, to further distinguish your fork, in the "Repository name" field, type a name.
+  - Click Create fork.
+
+To clone this repository, you have to :
+  - Go to my [GitHub repository called PP3](https://github.com/ObiWanBonobi/PP3).
+  - Above the list of files, click  Code.
+  - Copy the URL for the repository.
+  - Open Git Bash.
+  - Change the current working directory to the location where you want the cloned directory.
+  - Type git clone, and then paste the URL you copied earlier.
+  - Press Enter to create your local clone.
+
+You can see deployed game [here]().
+
+<br>
+
+# Credits
+
+- <b>FlowChart</b> : I got some ideas for my flowchart from [this project](https://github.com/PedroCristo/portfolio_project_3)
