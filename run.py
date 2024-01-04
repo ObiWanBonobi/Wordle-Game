@@ -45,10 +45,10 @@ def display_start_menu():
         )
     )
 
-    get_input()
+    get_name_and_country_input()
 
 
-def get_input():
+def get_name_and_country_input():
     """
     Input for the users name and country. The name input will come up
     with an error if numbers are used and if the name is longer than
@@ -60,10 +60,25 @@ def get_input():
         print("Checking if name input is valid...\n")
 
         if check_input(name_input):
-            print("nice")
+            break
+
+    while True:
+        country_input = input("Enter your country : \n")
+        print("Checking if country input is valid...\n")
+
+        if check_input(country_input):
+            print(f"Hi {name_input.capitalize()} from {country_input.capitalize()}, let's play?\n")
+            play_game()
             break
 
     return name_input
+
+
+def play_game():
+    """
+    Plays the game
+    """
+    print("nice one")
 
 
 def check_input(values):
