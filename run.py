@@ -1,11 +1,12 @@
 """Google sheets import and library imports"""
+import random
 import gspread
 
 from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
-from words import english_words
-from countries import country_list
+from words import ENGLISH_LIST
+from countries import COUNTRY_LIST
 from extras import WORDLE_RULES, TITLE_BANNER
 
 # API setup
@@ -50,8 +51,8 @@ def display_start_menu():
 def get_user_input():
     """
     Input for the users name and country. They will come up with an error if anything
-    other than alphabetical letters and spaces are used. The country input will come 
-    back with an error if the input doesn't match any of the countries in the countries 
+    other than alphabetical letters and spaces are used. The country input will come
+    back with an error if the input doesn't match any of the countries in the countries
     file.
     """
     while True:
@@ -93,18 +94,19 @@ def ready_to_play_game():
 
 def play_wordle():
     """
-    Starts playing wordle
+    The computer chooses a random word from the imported words list.
     """
-    print("playing wordle")
+    computer_choice = random.choice(ENGLISH_LIST)
+    print(computer_choice)
 
 
-def check_input(values):
+def check_input(data):
     """
-    Inside the try, Raises ValueError if the name and country input is something 
+    Inside the try, Raises ValueError if the name and country input is something
     other than an alphabetical letters or spaces.
     """
     try:
-        if not all(x.isalpha() or x.isspace() for x in values):
+        if not all(x.isalpha() or x.isspace() for x in data):
             raise ValueError("The input can only be alphabetical letters and spaces.\n")
     except ValueError as e:
         print(f"Invalid data: {e}Please try again.\n")
