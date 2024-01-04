@@ -3,6 +3,9 @@ import gspread
 from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
+from words import english_words
+from countries import country_list
+from extras import wordle_rules, title_banner
 
 # API setup
 SCOPE = [
@@ -22,25 +25,30 @@ def display_start_menu():
     """
     Displays the start page with a fun titel
     """
-    title_banner = """
-.--------------..--------------..--------------..--------------..--------------..--------------.
-| _____  _____ ||     ____     ||  _______     ||  ________    ||   _____      ||  _________   |
-||_   _||_   _|||   .'    `.   || |_   __ \    || |_   ___ `.  ||  |_   _|     || |_   ___  |  |
-|  | | /\ | |  ||  /  .--.  \  ||   | |__) |   ||   | |   `. \ ||    | |       ||   | |_  \_|  |
-|  | |/  \| |  ||  | |    | |  ||   |  __ /    ||   | |    | | ||    | |   _   ||   |  _|  _   |
-|  |   /\   |  ||  \  `--'  /  ||  _| |  \ \_  ||  _| |___.' / ||   _| |__/ |  ||  _| |___/ |  |
-|  |__/  \__|  ||   `.____.'   || |____| |___| || |________.'  ||  |________|  || |_________|  |
-|              ||              ||              ||              ||              ||              |
-'--------------''--------------''--------------''--------------''--------------''--------------'
-    """
-
     rprint(
         Panel(
             title_banner,
             title=":books: A Python Terminal Game :books:",
             subtitle=":books: By Bo de Groot :books:",
+            style="bold",
+        )
+    )
+    print()
+    rprint(
+        Panel(
+            wordle_rules,
+            title=":clipboard: Rules :clipboard:",
+            style="bold",
+            subtitle=":cross_mark: :o: :heavy_check_mark:",
         )
     )
 
 
-display_start_menu()
+def main():
+    """
+    Runs all the program functions
+    """
+    display_start_menu()
+
+
+main()

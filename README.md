@@ -104,3 +104,4 @@ You can see deployed game [here]().
 - <b>Python Library</b> : 
   * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation)
   * I got my ASCII terminal banner from [this website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07)
+- <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/)
