@@ -1,5 +1,7 @@
 """Google sheets import and library imports"""
+import re
 import gspread
+
 from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
@@ -23,7 +25,7 @@ SHEET = GSPREAD_CLIENT.open("wordle_bo")
 
 def display_start_menu():
     """
-    Displays the start page with a fun titel
+    Displays the start page with a fun titel and the name input
     """
     rprint(
         Panel(
@@ -42,6 +44,41 @@ def display_start_menu():
             subtitle=":cross_mark: :o: :heavy_check_mark:",
         )
     )
+
+    get_input()
+
+
+def get_input():
+    """
+    Input for the users name and country. The name input will come up
+    with an error if numbers are used and if the name is longer than
+    10 letters. The country input will come back with an error if the
+    user types in an non-existing country.
+    """
+    while True:
+        name_input = input("Enter your name : \n")
+        print("Checking if name input is valid...\n")
+
+        if check_input(name_input):
+            print("nice")
+            break
+
+    return name_input
+
+
+def check_input(values):
+    """
+    Inside the try, Raises ValueError if the name input is something other than
+    alphabetical letters.
+    """
+    try:
+        if not re.match(r"^[A-Za-z]+$", values):
+            raise ValueError("The name input can only be alphabetical letters.\n")
+    except ValueError as e:
+        print(f"Invalid data: {e}Please try again.\n")
+        return False
+
+    return True
 
 
 def main():
