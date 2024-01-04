@@ -1,4 +1,6 @@
-title_banner = """
+""" A title banner and the rules for the start page """
+
+TITLE_BANNER = r"""
 .--------------..--------------..--------------..--------------..--------------..--------------.
 | _____  _____ ||     ____     ||  _______     ||  ________    ||   _____      ||  _________   |
 ||_   _||_   _|||   .'    `.   || |_   __ \    || |_   ___ `.  ||  |_   _|     || |_   ___  |  |
@@ -10,7 +12,7 @@ title_banner = """
 '--------------''--------------''--------------''--------------''--------------''--------------'
 """
 
-wordle_rules = """
+WORDLE_RULES = """
 To start the game :
 - First add your name. Make sure your name is only created with letters and a maximum of 10 letters long.
 - Then fill in the County you're from, make sure it's a real country.

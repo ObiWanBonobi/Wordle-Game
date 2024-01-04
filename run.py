@@ -1,5 +1,4 @@
 """Google sheets import and library imports"""
-import re
 import gspread
 
 from google.oauth2.service_account import Credentials
@@ -7,7 +6,7 @@ from rich import print as rprint
 from rich.panel import Panel
 from words import english_words
 from countries import country_list
-from extras import wordle_rules, title_banner
+from extras import WORDLE_RULES, TITLE_BANNER
 
 # API setup
 SCOPE = [
@@ -29,7 +28,7 @@ def display_start_menu():
     """
     rprint(
         Panel(
-            title_banner,
+            TITLE_BANNER,
             title=":books: A Python Terminal Game :books:",
             subtitle=":books: By Bo de Groot :books:",
             style="bold",
@@ -38,22 +37,22 @@ def display_start_menu():
     print()
     rprint(
         Panel(
-            wordle_rules,
+            WORDLE_RULES,
             title=":clipboard: Rules :clipboard:",
             style="bold",
             subtitle=":cross_mark: :o: :heavy_check_mark:",
         )
     )
 
-    get_name_and_country_input()
+    get_user_input()
 
 
-def get_name_and_country_input():
+def get_user_input():
     """
-    Input for the users name and country. The name input will come up
-    with an error if numbers are used and if the name is longer than
-    10 letters. The country input will come back with an error if the
-    user types in an non-existing country.
+    Input for the users name and country. They will come up with an error if anything
+    other than alphabetical letters and spaces are used. The country input will come 
+    back with an error if the input doesn't match any of the countries in the countries 
+    file.
     """
     while True:
         name_input = input("Enter your name : \n")
@@ -67,28 +66,46 @@ def get_name_and_country_input():
         print("Checking if country input is valid...\n")
 
         if check_input(country_input):
-            print(f"Hi {name_input.capitalize()} from {country_input.capitalize()}, let's play?\n")
-            play_game()
+            print(f"Hello {name_input.title()} from {country_input.title()}!\n")
             break
+
+    ready_to_play_game()
 
     return name_input
 
 
-def play_game():
+def ready_to_play_game():
     """
-    Plays the game
+    Asks the user if they're ready to play Wordle. Then exits the game if not. And
+    starts the game when they are.
     """
-    print("nice one")
+    play_game_input = input("Ready to play? y/n\n")
+
+    if play_game_input.lower() == "y":
+        print("Let's play Wordle!\n")
+        play_wordle()
+    elif play_game_input.lower() == "n":
+        print("Exiting game...\n")
+        exit()
+    else:
+        print("Invalid option, type y or n.\n")
+
+
+def play_wordle():
+    """
+    Starts playing wordle
+    """
+    print("playing wordle")
 
 
 def check_input(values):
     """
-    Inside the try, Raises ValueError if the name input is something other than
-    alphabetical letters.
+    Inside the try, Raises ValueError if the name and country input is something 
+    other than an alphabetical letters or spaces.
     """
     try:
-        if not re.match(r"^[A-Za-z]+$", values):
-            raise ValueError("The name input can only be alphabetical letters.\n")
+        if not all(x.isalpha() or x.isspace() for x in values):
+            raise ValueError("The input can only be alphabetical letters and spaces.\n")
     except ValueError as e:
         print(f"Invalid data: {e}Please try again.\n")
         return False
