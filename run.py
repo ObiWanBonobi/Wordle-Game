@@ -50,10 +50,10 @@ def display_start_menu():
 
 def get_user_input():
     """
-    Input for the users name and country. They will come up with an error if anything
-    other than alphabetical letters and spaces are used. The country input will come
-    back with an error if the input doesn't match any of the countries in the countries
-    file.
+    Input for the users name and country. The name input will come up with an error 
+    if anything other than alphabetical letters and spaces are used. The country input 
+    will come back with an error if the input doesn't match any of the countries in 
+    the countries file.
     """
     while True:
         name_input = input("Enter your name : \n")
@@ -63,16 +63,16 @@ def get_user_input():
             break
 
     while True:
-        country_input = input("Enter your country : \n")
+        country_input = input("Enter your country in English : \n").title()
         print("Checking if country input is valid...\n")
 
-        if check_input(country_input):
+        if check_country(country_input):
             print(f"Hello {name_input.title()} from {country_input.title()}!\n")
             break
 
     ready_to_play_game()
 
-    return name_input
+    return name_input, country_input
 
 
 def ready_to_play_game():
@@ -89,7 +89,7 @@ def ready_to_play_game():
         print("Exiting game...\n")
         exit()
     else:
-        print("Invalid option, type y or n.\n")
+        print("Invalid option, type either y or n.\n")
 
 
 def play_wordle():
@@ -100,16 +100,34 @@ def play_wordle():
     print(computer_choice)
 
 
-def check_input(data):
+def check_input(name):
     """
-    Inside the try, Raises ValueError if the name and country input is something
+    Inside the try, Raises ValueError if the name input is something
     other than an alphabetical letters or spaces.
     """
     try:
-        if not all(x.isalpha() or x.isspace() for x in data):
-            raise ValueError("The input can only be alphabetical letters and spaces.\n")
+        if not all(x.isalpha() or x.isspace() for x in name):
+            raise ValueError(
+                "Name input can only be alphabetical letters and spaces.\n"
+            )
     except ValueError as e:
-        print(f"Invalid data: {e}Please try again.\n")
+        print(f"Invalid name : {e}Please try again.\n")
+        return False
+
+    return True
+
+
+def check_country(country):
+    """
+    Inside the try, Raises ValueError if the country input is not in the countries list.
+    """
+    try:
+        if country not in COUNTRY_LIST:
+            raise ValueError(
+                "Country input wont work with symbols and or special characters\n"
+            )
+    except ValueError as e:
+        print(f"Invalid country : {e}Please try again.\n")
         return False
 
     return True
