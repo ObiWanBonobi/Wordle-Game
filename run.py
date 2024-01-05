@@ -1,5 +1,6 @@
 """Google sheets import and library imports"""
 import random
+import sys
 import gspread
 
 from google.oauth2.service_account import Credentials
@@ -50,24 +51,23 @@ def display_start_menu():
 
 def get_user_input():
     """
-    Input for the users name and country. The name input will come up with an error 
-    if anything other than alphabetical letters and spaces are used. The country input 
-    will come back with an error if the input doesn't match any of the countries in 
-    the countries file.
+    Input for the users name and country. The name input will come up with an error if anything
+    other than alphabetical letters and spaces are used. The country input will come back with an
+    error if the input doesn't match any of the countries in the countries file.
     """
     while True:
-        name_input = input("Enter your name : \n")
-        print("Checking if name input is valid...\n")
+        name_input = input("Enter your name : \n").title()
+        print("\nChecking if name input is valid...\n")
 
         if check_input(name_input):
             break
 
     while True:
         country_input = input("Enter your country in English : \n").title()
-        print("Checking if country input is valid...\n")
+        print("\nChecking if country input is valid...\n")
 
         if check_country(country_input):
-            print(f"Hello {name_input.title()} from {country_input.title()}!\n")
+            print(f"Hello {name_input} from {country_input}!\n")
             break
 
     ready_to_play_game()
@@ -77,17 +77,17 @@ def get_user_input():
 
 def ready_to_play_game():
     """
-    Asks the user if they're ready to play Wordle. Then exits the game if not. And
-    starts the game when they are.
+    Asks the user if they're ready to play Wordle. Then exits the game if n is pressed, and
+    starts the game when y is pressed.
     """
-    play_game_input = input("Ready to play? y/n\n")
+    play_game_input = input("Ready to play? y/n\n").lower()
 
-    if play_game_input.lower() == "y":
-        print("Let's play Wordle!\n")
+    if play_game_input == "y":
+        print("\nLet's play Wordle!\n")
         play_wordle()
-    elif play_game_input.lower() == "n":
+    elif play_game_input == "n":
         print("Exiting game...\n")
-        exit()
+        sys.exit()
     else:
         print("Invalid option, type either y or n.\n")
 
@@ -96,14 +96,31 @@ def play_wordle():
     """
     The computer chooses a random word from the imported words list.
     """
-    computer_choice = random.choice(ENGLISH_LIST)
-    print(computer_choice)
+    computer_choice = random.choice(ENGLISH_LIST).upper()
+
+    print("You have 6 guesses :\n")
+
+    for guess_num in range(1, 7):
+        user_guess = input(f"Guess {guess_num} : ").upper()
+        if user_guess == computer_choice:
+            print("Correct\n")
+            break
+
+        correct_letters = {
+        letter for letter, correct in zip(user_guess, computer_choice) if letter == correct
+        }
+        misplaced_letters = set(user_guess) & set(computer_choice) - correct_letters
+        wrong_letters = set(user_guess) - set(computer_choice)
+
+        print("\nCorrect letters:", ", ".join(sorted(correct_letters)))
+        print("\nMisplaced letters:", ", ".join(sorted(misplaced_letters)))
+        print("\nWrong letters:", ", ".join(sorted(wrong_letters)))
 
 
 def check_input(name):
     """
-    Inside the try, Raises ValueError if the name input is something
-    other than an alphabetical letters or spaces.
+    Validation function for name input. Inside the try, Raises ValueError if the name
+    input is something other than an alphabetical letters or spaces.
     """
     try:
         if not all(x.isalpha() or x.isspace() for x in name):
@@ -119,7 +136,8 @@ def check_input(name):
 
 def check_country(country):
     """
-    Inside the try, Raises ValueError if the country input is not in the countries list.
+    Validation function for country input. Inside the try, Raises ValueError if the country
+    input is not in the countries list.
     """
     try:
         if country not in COUNTRY_LIST:
@@ -140,4 +158,4 @@ def main():
     display_start_menu()
 
 
-main()
+get_user_input()

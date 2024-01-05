@@ -100,8 +100,13 @@ You can see deployed game [here]().
 
 # Credits
 
-- <b>FlowChart</b> : I got some ideas for my flowchart from [this project](https://github.com/PedroCristo/portfolio_project_3)
+- <b>FlowChart</b> : I got some ideas for my flowchart from [this project](https://github.com/PedroCristo/portfolio_project_3) made by Pedro Cristo.
+- <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/).
+- <b>English words</b> : I got the english 5 letter words from [The free dictionary](https://www.thefreedictionary.com/5-letter-words.htm).
+- <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
+- <b>Python code</b> : I got a better understanding about Python code from these forums and websites :
+  * [Enumerate()](https://www.geeksforgeeks.org/enumerate-in-python/)
 - <b>Python Library</b> : 
-  * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation)
-  * I got my ASCII terminal banner from [this website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07)
-- <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/)
+  * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation).
+  * I got my ASCII terminal banner from [naufalardhani website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07).
+  * I got my exit code from the [codedamn website](https://codedamn.com/news/python/exit-python-program-from-terminal).
