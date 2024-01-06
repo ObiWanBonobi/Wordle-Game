@@ -997,4 +997,4 @@ zebra
 zelda
 """
 
-ENGLISH_LIST = ENGLISH_WORDS.split()
+ENGLISH_LIST = ENGLISH_WORDS.upper().split()

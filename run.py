@@ -46,8 +46,6 @@ def display_start_menu():
         )
     )
 
-    get_user_input()
-
 
 def get_user_input():
     """
@@ -59,18 +57,16 @@ def get_user_input():
         name_input = input("Enter your name : \n").title()
         print("\nChecking if name input is valid...\n")
 
-        if check_input(name_input):
+        if check_name_input(name_input):
             break
 
     while True:
         country_input = input("Enter your country in English : \n").title()
         print("\nChecking if country input is valid...\n")
 
-        if check_country(country_input):
+        if check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!\n")
             break
-
-    ready_to_play_game()
 
     return name_input, country_input
 
@@ -84,7 +80,6 @@ def ready_to_play_game():
 
     if play_game_input == "y":
         print("\nLet's play Wordle!\n")
-        play_wordle()
     elif play_game_input == "n":
         print("Exiting game...\n")
         sys.exit()
@@ -94,47 +89,58 @@ def ready_to_play_game():
 
 def play_wordle():
     """
-    The computer chooses a random word from the imported words list.
+    Starts the wordle game. The computer chooses a random word from the imported words list.
+    The user can start guessing 5 letter words.
     """
     computer_choice = random.choice(ENGLISH_LIST).upper()
 
-    print("You have 6 guesses :\n")
+    print("You have 6 guesses to find the 5 letter word :\n")
 
-    for guess_num in range(1, 7):
-        user_guess = input(f"Guess {guess_num} : ").upper()
+    for guesses_left in range(1, 7):
+        while True:
+            user_guess = input(f"You have {guesses_left} guess(es) left : ").upper()
+            print("\nChecking if word is valid...\n")
+
+            if check_user_input(user_guess):
+                break
+
         if user_guess == computer_choice:
-            print("Correct\n")
+            print("Wooo you guessed the correct word!\n")
             break
 
-        correct_letters = {
-        letter for letter, correct in zip(user_guess, computer_choice) if letter == correct
-        }
-        misplaced_letters = set(user_guess) & set(computer_choice) - correct_letters
-        wrong_letters = set(user_guess) - set(computer_choice)
+        correct_letters = set()
+        for user, computer in zip(user_guess, computer_choice):
+            if user == computer:
+                correct_letters.add(user)
+        letter_wrong_spot = set(user_guess) & set(computer_choice) - correct_letters
+        incorrect_letters = set(user_guess) - set(computer_choice)
 
-        print("\nCorrect letters:", ", ".join(sorted(correct_letters)))
-        print("\nMisplaced letters:", ", ".join(sorted(misplaced_letters)))
-        print("\nWrong letters:", ", ".join(sorted(wrong_letters)))
+        print(
+            "\nCorrect letters in the right spot :", ", ".join(sorted(correct_letters))
+        )
+        print("\nLetters in the wrong spot :", ", ".join(sorted(letter_wrong_spot)))
+        print("\nIcorrect letters :", ", ".join(sorted(incorrect_letters)))
+        print(computer_choice)
+    else:
+        print(f"The correct word was {computer_choice}\n")
 
 
-def check_input(name):
+def check_name_input(name):
     """
     Validation function for name input. Inside the try, Raises ValueError if the name
     input is something other than an alphabetical letters or spaces.
     """
     try:
         if not all(x.isalpha() or x.isspace() for x in name):
-            raise ValueError(
-                "Name input can only be alphabetical letters and spaces.\n"
-            )
+            raise ValueError("Name input can only be alphabetical letters and spaces.")
     except ValueError as e:
-        print(f"Invalid name : {e}Please try again.\n")
+        print(f"Invalid name : {e} Please try again.\n")
         return False
 
     return True
 
 
-def check_country(country):
+def check_country_input(country):
     """
     Validation function for country input. Inside the try, Raises ValueError if the country
     input is not in the countries list.
@@ -142,10 +148,27 @@ def check_country(country):
     try:
         if country not in COUNTRY_LIST:
             raise ValueError(
-                "Country input wont work with symbols and or special characters\n"
+                "Country input wont work with symbols and or special characters"
             )
     except ValueError as e:
-        print(f"Invalid country : {e}Please try again.\n")
+        print(f"Invalid country : {e} Please try again.\n")
+        return False
+
+    return True
+
+
+def check_user_input(user):
+    """
+    Validation function for user input. Inside the try, Raises ValueError if the input
+    is more or less than 5 letters and not in the words list.
+    """
+    try:
+        if len(user) != 5:
+            raise ValueError("The word needs to be 5 alphabetical letters long")
+        if user not in ENGLISH_LIST:
+            raise ValueError("The word needs to be a real 5 letter word")
+    except ValueError as e:
+        print(f"Invalid word : {e} Please try again.\n")
         return False
 
     return True
@@ -156,6 +179,9 @@ def main():
     Runs all the program functions
     """
     display_start_menu()
+    get_user_input()
+    ready_to_play_game()
+    play_wordle()
 
 
-get_user_input()
+play_wordle()

@@ -68,6 +68,8 @@
 
 # Bug fixes
 
+- When I ran the game after adding a validation for the word input, it kept going to the error that I wasn't using a real word. I started trouble shooting and found that I was comparing the user input with my english list. However my english list was in lowercase and my input I wanted the word to be in uppercase. So I changes the words file so that it returned in uppercase.
+
 <br>
 
 # Deployment
