@@ -30,7 +30,11 @@
 
 # Introduction
 
+ I'm thrilled to present my very own Python-based Wordle game that promises to challenge and entertain you in equal measure. Dive into the realm of word-guessing, where you'll be tasked with unraveling a hidden five-letter word through strategic deduction and clever guessing.
+
 ## User experience
+
+The user experience in my Wordle game has been meticulously crafted to ensure both enjoyment and ease of play.
 
 ## My vision for the game
 
@@ -104,6 +108,7 @@ You can see deployed game [here]().
 
 - <b>FlowChart</b> : I got some ideas for my flowchart from [this project](https://github.com/PedroCristo/portfolio_project_3) made by Pedro Cristo.
 - <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/).
+- <b>ChatGPT</b> : ChatGPT helped me with articulating myself better in the readme introduction.
 - <b>English words</b> : I got the english 5 letter words from [The free dictionary](https://www.thefreedictionary.com/5-letter-words.htm).
 - <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
 - <b>Python code</b> : I got a better understanding about Python code from these forums and websites :

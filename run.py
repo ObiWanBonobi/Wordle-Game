@@ -10,6 +10,7 @@ from words import ENGLISH_LIST
 from countries import COUNTRY_LIST
 from extras import WORDLE_RULES, TITLE_BANNER
 
+
 # API setup
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -80,6 +81,7 @@ def ready_to_play_game():
 
     if play_game_input == "y":
         print("\nLet's play Wordle!\n")
+        play_wordle()
     elif play_game_input == "n":
         print("Exiting game...\n")
         sys.exit()
@@ -95,17 +97,19 @@ def play_wordle():
     computer_choice = random.choice(ENGLISH_LIST).upper()
 
     print("You have 6 guesses to find the 5 letter word :\n")
+    print(computer_choice)
 
     for guesses_left in range(1, 7):
         while True:
-            user_guess = input(f"You have {guesses_left} guess(es) left : ").upper()
-            print("\nChecking if word is valid...\n")
+            user_guess = input(f"Guess {guesses_left} : ").upper()
 
             if check_user_input(user_guess):
                 break
 
         if user_guess == computer_choice:
-            print("Wooo you guessed the correct word!\n")
+            print("Congratulations, you guessed the correct word!\n")
+            print("Do you want to play again?")
+            ready_to_play_game()
             break
 
         correct_letters = set()
@@ -119,8 +123,8 @@ def play_wordle():
             "\nCorrect letters in the right spot :", ", ".join(sorted(correct_letters))
         )
         print("\nLetters in the wrong spot :", ", ".join(sorted(letter_wrong_spot)))
-        print("\nIcorrect letters :", ", ".join(sorted(incorrect_letters)))
-        print(computer_choice)
+        print("\nIncorrect letters :", ", ".join(sorted(incorrect_letters)))
+
     else:
         print(f"The correct word was {computer_choice}\n")
 
@@ -132,9 +136,9 @@ def check_name_input(name):
     """
     try:
         if not all(x.isalpha() or x.isspace() for x in name):
-            raise ValueError("Name input can only be alphabetical letters and spaces.")
+            raise ValueError("Name input can only be alphabetical letters and spaces,")
     except ValueError as e:
-        print(f"Invalid name : {e} Please try again.\n")
+        print(f"Invalid name : {e} please try again.\n")
         return False
 
     return True
@@ -148,10 +152,10 @@ def check_country_input(country):
     try:
         if country not in COUNTRY_LIST:
             raise ValueError(
-                "Country input wont work with symbols and or special characters"
+                "Country input wont work with symbols and or special characters,"
             )
     except ValueError as e:
-        print(f"Invalid country : {e} Please try again.\n")
+        print(f"Invalid country : {e} please try again.\n")
         return False
 
     return True
@@ -164,11 +168,11 @@ def check_user_input(user):
     """
     try:
         if len(user) != 5:
-            raise ValueError("The word needs to be 5 alphabetical letters long")
+            raise ValueError("The word needs to be 5 alphabetical letters long,")
         if user not in ENGLISH_LIST:
-            raise ValueError("The word needs to be a real 5 letter word")
+            raise ValueError("The word needs to be a real 5 letter word,")
     except ValueError as e:
-        print(f"Invalid word : {e} Please try again.\n")
+        print(f"Invalid word : {e} please try again.\n")
         return False
 
     return True
@@ -181,7 +185,6 @@ def main():
     display_start_menu()
     get_user_input()
     ready_to_play_game()
-    play_wordle()
 
 
 play_wordle()
