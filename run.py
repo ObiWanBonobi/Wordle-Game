@@ -67,6 +67,7 @@ def get_user_input():
 
         if check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!\n")
+            update_leaderboard(name_input, country_input)
             break
 
     return name_input, country_input
@@ -95,13 +96,15 @@ def play_wordle():
     The user can start guessing 5 letter words.
     """
     computer_choice = random.choice(ENGLISH_LIST).upper()
+    score = 0
 
     print("You have 6 guesses to find the 5 letter word :\n")
     print(computer_choice)
 
     for guesses_left in range(1, 7):
         while True:
-            user_guess = input(f"Guess {guesses_left} : ").upper()
+            user_guess = input(f"Guess {guesses_left} : \n").upper()
+            score += 1
 
             if check_user_input(user_guess):
                 break
@@ -109,21 +112,19 @@ def play_wordle():
         if user_guess == computer_choice:
             print("Congratulations, you guessed the correct word!\n")
             print("Do you want to play again?")
+            update_leaderboard_score(score)
             ready_to_play_game()
             break
 
-        correct_letters = set()
-        for user, computer in zip(user_guess, computer_choice):
-            if user == computer:
-                correct_letters.add(user)
-        letter_wrong_spot = set(user_guess) & set(computer_choice) - correct_letters
-        incorrect_letters = set(user_guess) - set(computer_choice)
 
-        print(
-            "\nCorrect letters in the right spot :", ", ".join(sorted(correct_letters))
-        )
-        print("\nLetters in the wrong spot :", ", ".join(sorted(letter_wrong_spot)))
-        print("\nIncorrect letters :", ", ".join(sorted(incorrect_letters)))
+        # For each character in the user input
+        # check if char is in right position
+        # ...
+        # If correct, print char + symbol for correctness
+        # If incorrect, print chart + symbol for incorrectness
+        # | P | O |
+        # |❌ | ...
+
 
     else:
         print(f"The correct word was {computer_choice}\n")
@@ -178,6 +179,24 @@ def check_user_input(user):
     return True
 
 
+def update_leaderboard(name, country):
+    """
+    Updates the leaderboard sheet with the users name and country
+    """
+    update_leaderboard_sheet = SHEET.worksheet("leaderboard")
+    update_leaderboard_sheet.append_row([name, country])
+
+
+def update_leaderboard_score(score):
+    """
+    Updates the leaderboard sheet with the user score
+    """
+    leaderboard_sheet = SHEET.worksheet("leaderboard")
+    column_values = leaderboard_sheet.col_values(3)
+    column_numbers = len(column_values) + 1
+    leaderboard_sheet.update_cell(column_numbers,3,score)
+
+
 def main():
     """
     Runs all the program functions
@@ -187,4 +206,4 @@ def main():
     ready_to_play_game()
 
 
-play_wordle()
+main()
