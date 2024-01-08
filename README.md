@@ -73,6 +73,8 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 # Bug fixes
 
 - When I ran the game after adding a validation for the word input, it kept going to the error that I wasn't using a real word. I started trouble shooting and found that I was comparing the user input with my english list. However my english list was in lowercase and my input I wanted the word to be in uppercase. So I changes the words file so that it returned in uppercase.
+- I noticed that using country names that contained a space weren't working. I ended up changing the file to a csv file so that fixed it.
+- I noticed that some of the words in the words file were names and also words that noone will know. So I went through the list to delete them.
 
 <br>
 
@@ -110,10 +112,15 @@ You can see deployed game [here]().
 - <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/).
 - <b>ChatGPT</b> : ChatGPT helped me with articulating myself better in the readme introduction.
 - <b>English words</b> : I got the english 5 letter words from [The free dictionary](https://www.thefreedictionary.com/5-letter-words.htm).
+- <b>All words</b> : I got my list of all english words from a [GitHub account](https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt)
 - <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
-- <b>Python code</b> : I got a better understanding about Python code from these forums and websites :
+- <b>Python code</b> : I got a better understanding about Python code from these forums, websites and people :
   * [Enumerate()](https://www.geeksforgeeks.org/enumerate-in-python/)
+  * I got help with a better understanding of Python from my brother in law [Steffen Bjerkenås](https://github.com/stebje). He told me I needed to change my words list and country list to a text and CSV files and move them into a seperate file for better readability.
+  * [GeeksforGeeks.org](https://www.geeksforgeeks.org/pulling-a-random-word-or-string-from-a-line-in-a-text-file-in-python/) helped me with understanding how to get a random word from a text file.
+  * [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
+  * [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
 - <b>Python Library</b> : 
   * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation).
-  * I got my ASCII terminal banner from [naufalardhani website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07).
+  * I got my ASCII terminal banner from [Naufalardhani website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07).
   * I got my exit code from the [codedamn website](https://codedamn.com/news/python/exit-python-program-from-terminal).

@@ -6,9 +6,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
-from words import ENGLISH_LIST
-from countries import COUNTRY_LIST
-from extras import WORDLE_RULES, TITLE_BANNER
 
 
 # API setup
@@ -17,6 +14,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive",
 ]
+
 
 # Credentials and access to google sheets
 CREDS = Credentials.from_service_account_file("creds.json")
@@ -29,41 +27,53 @@ def display_start_menu():
     """
     Displays the start page with a fun titel and the name input
     """
-    rprint(
-        Panel(
-            TITLE_BANNER,
+    title_banner = r"""
+    .--------------..--------------..--------------..--------------..--------------..--------------.
+    | _____  _____ ||     ____     ||  _______     ||  ________    ||   _____      ||  _________   |
+    ||_   _||_   _|||   .'    `.   || |_   __ \    || |_   ___ `.  ||  |_   _|     || |_   ___  |  |
+    |  | | /\ | |  ||  /  .--.  \  ||   | |__) |   ||   | |   `. \ ||    | |       ||   | |_  \_|  |
+    |  | |/  \| |  ||  | |    | |  ||   |  __ /    ||   | |    | | ||    | |   _   ||   |  _|  _   |
+    |  |   /\   |  ||  \  `--'  /  ||  _| |  \ \_  ||  _| |___.' / ||   _| |__/ |  ||  _| |___/ |  |
+    |  |__/  \__|  ||   `.____.'   || |____| |___| || |________.'  ||  |________|  || |_________|  |
+    |              ||              ||              ||              ||              ||              |
+    '--------------''--------------''--------------''--------------''--------------''--------------'
+    """
+
+    wordle_rules = """
+    To start the game :
+    - First add your name. Make sure your name is only created with letters and a maximum of 10 letters long.
+    - Then fill in the County you're from, make sure it's a real country.
+    - To play the game, you have to enter a real 5 letter English word. If the wrong letter got quessed, 
+    it will show a red cross. When you guess a correct letter but its in the wrong spot, it will show a 
+    red circle. If the letter is correct and in the correct spot, it will show a check mark. 
+    """
+
+    rprint(Panel(title_banner, style="bold",
             title=":books: A Python Terminal Game :books:",
-            subtitle=":books: By Bo de Groot :books:",
-            style="bold",
-        )
-    )
+            subtitle=":books: By Bo de Groot :books:"))
     print()
-    rprint(
-        Panel(
-            WORDLE_RULES,
+    rprint(Panel(wordle_rules, style="bold",
             title=":clipboard: Rules :clipboard:",
-            style="bold",
-            subtitle=":cross_mark: :o: :white_check_mark:",
-        )
-    )
+            subtitle=":cross_mark: :o: :white_check_mark:"))
 
 
 def get_user_input():
     """
     Input for the users name and country. The name input will come up with an error if anything
     other than alphabetical letters and spaces are used. The country input will come back with an
-    error if the input doesn't match any of the countries in the countries file.
+    error if the input doesn't match any of the countries in the countries file, also can't have
+    any special characters and or symbols.
     """
     while True:
         name_input = input("Enter your name : \n").title()
-        print("\nChecking if name input is valid...\n")
+        print("\nChecking if name is valid...\n")
 
         if check_name_input(name_input):
             break
 
     while True:
         country_input = input("Enter your country in English : \n").title()
-        print("\nChecking if country input is valid...\n")
+        print("\nChecking if country is valid...\n")
 
         if check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!\n")
@@ -95,7 +105,11 @@ def play_wordle():
     Starts the wordle game. The computer chooses a random word from the imported words list.
     The user can start guessing 5 letter words.
     """
-    computer_choice = random.choice(ENGLISH_LIST).upper()
+    with open("text_files/words.txt", "r", encoding="cp1252") as f:
+        all_words = f.read()
+        words = list(map(str, all_words.upper().split()))
+
+    computer_choice = random.choice(words)
     score = 0
 
     print("You have 6 guesses to find the 5 letter word :\n")
@@ -103,7 +117,7 @@ def play_wordle():
 
     for guesses_left in range(1, 7):
         while True:
-            user_guess = input(f"Guess {guesses_left} : \n").upper()
+            user_guess = input(f"Guess {guesses_left} : ").upper()
             ug = user_guess
             score += 1
             print()
@@ -163,14 +177,18 @@ def check_country_input(country):
     Validation function for country input. Inside the try, Raises ValueError if the country
     input is not in the countries list.
     """
-    try:
-        if country not in COUNTRY_LIST:
-            raise ValueError(
-                "Country input wont work with symbols and or special characters,"
-            )
-    except ValueError as e:
-        print(f"Invalid country : {e} please try again.\n")
-        return False
+    country_input_strip = country.strip()
+
+    with open("text_files/countries.csv", "r", encoding="cp1252") as f:
+        country_file = f.read()
+
+        try:
+            if country_input_strip not in country_file:
+                raise ValueError(
+                "Country input wont work with symbols and or special characters,")
+        except ValueError as e:
+            print(f"Invalid country : {e} please try again.\n")
+            return False
 
     return True
 
@@ -180,14 +198,16 @@ def check_user_input(user):
     Validation function for user input. Inside the try, Raises ValueError if the input
     is more or less than 5 letters and not in the words list.
     """
-    try:
-        if len(user) != 5:
-            raise ValueError("The word needs to be 5 alphabetical letters long,")
-        if user not in ENGLISH_LIST:
-            raise ValueError("The word needs to be a real 5 letter word,")
-    except ValueError as e:
-        print(f"Invalid word : {e} please try again.\n")
-        return False
+    with open("text_files/all_words.txt", "r", encoding="cp1252") as f:
+        all_words_list = f.read()
+        all_words = list(map(str, all_words_list.upper().split()))
+
+        try:
+            if user not in all_words:
+                raise ValueError("The word needs to be a real 5 alphabetical letter word,")
+        except ValueError as e:
+            print(f"Invalid word : {e} please try again.\n")
+            return False
 
     return True
 
