@@ -43,7 +43,7 @@ def display_start_menu():
             WORDLE_RULES,
             title=":clipboard: Rules :clipboard:",
             style="bold",
-            subtitle=":cross_mark: :o: :heavy_check_mark:",
+            subtitle=":cross_mark: :o: :white_check_mark:",
         )
     )
 
@@ -104,30 +104,43 @@ def play_wordle():
     for guesses_left in range(1, 7):
         while True:
             user_guess = input(f"Guess {guesses_left} : \n").upper()
+            ug = user_guess
             score += 1
+            print()
 
             if check_user_input(user_guess):
                 break
 
+        print(f" {ug[0]}  {ug[1]}  {ug[2]}  {ug[3]}  {ug[4]}")
+        rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
+
         if user_guess == computer_choice:
             print("Congratulations, you guessed the correct word!\n")
             print("Do you want to play again?")
-            update_leaderboard_score(score)
+            update_leaderboard_score(int(score))
             ready_to_play_game()
             break
 
-
-        # For each character in the user input
-        # check if char is in right position
-        # ...
-        # If correct, print char + symbol for correctness
-        # If incorrect, print chart + symbol for incorrectness
-        # | P | O |
-        # |❌ | ...
-
-
     else:
         print(f"The correct word was {computer_choice}\n")
+
+
+def check_letters_word(user, computer):
+    """
+    Checks if the letters are correct and in the correct spot. If they are in the
+    word and if they are not in the word.
+    """
+    emoji = ""
+
+    for index, letter in enumerate(user):
+        if letter == computer[index]:
+            emoji += ":white_check_mark: "
+        elif letter in computer:
+            emoji += ":o: "
+        else:
+            emoji += ":cross_mark: "
+
+    return emoji
 
 
 def check_name_input(name):
@@ -194,7 +207,7 @@ def update_leaderboard_score(score):
     leaderboard_sheet = SHEET.worksheet("leaderboard")
     column_values = leaderboard_sheet.col_values(3)
     column_numbers = len(column_values) + 1
-    leaderboard_sheet.update_cell(column_numbers,3,score)
+    leaderboard_sheet.update_cell(column_numbers, 3, score)
 
 
 def main():
