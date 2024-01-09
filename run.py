@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
 from rich.console import Console
-console = Console(width=100)
+console = Console(width=70)
 
 
 # API setup
@@ -30,26 +30,27 @@ def display_start_menu():
     Displays the start page with a fun titel and the rules for the game.
     """
     title_banner = r"""
-.------------..------------..------------..-----------..----------..----------.
-| ___    ___ ||    ____    || _______    || _______   || _____    || ________ |
-||   |  |   |||  .'    `.  |||_   __ \   |||   ___ `. |||_   _|   |||   ___  ||
-| | | /\ | | || /  .--.  \ ||  | |__) |  || | |   `. \||  | |     || | |_  \_||
-| | |/  \| | || | |    | | ||  |  __ /   || | |    | |||  | |   _ || |  _|  _ |
-| |   /\   | || \  `--'  / || _| |  \ \_ || | |___.' /|| _| |__/ ||| | |___/ ||
-| |__/  \__| ||  `.____.'  |||____| |___||||_______.' |||________||||________||
-|            ||            ||            ||           ||          ||          |
-'------------''------------''------------''-----------''----------''----------'
+.----------..---------..---------..----------..--------..---------.
+| _      _ ||   ___   || _____   || ______   || _      || _______ |
+|| |    | ||| .'   `. |||  __ \  |||  ___ `. ||| |     |||  ___  ||
+|| | /\ | |||/  .-.  \||| |__) | ||| |   `. \||| |     ||| |_  \_||
+|| |/  \| |||| |   | ||||  __ /  ||| |    | |||| |   _ |||  _|  _ |
+||   /\   |||\  `-'  /||| |  \ \ ||| |___.' /||| |__/ |||| |___/ ||
+||__/  \__||| `.___.' |||_|   \_||||______.' |||______||||_______||
+|          ||         ||         ||          ||        ||         |
+'----------''---------''---------''----------''--------''---------'
     """
 
     wordle_rules = """
 To start the game :
-- First add your name. Make sure your name is only created with alphabetical
-  letters.
+- First add your name. Make sure your name is only created with
+  alphabetical letters.
 - Then fill in the County you're from, make sure it's a real country.
-- To play the game, you have to enter a real 5 letter English word. If the
-  wrong letter got quessed, it will show a red cross. When you guess a correct
-  letter but its in the wrong spot, it will show a red circle. If the letter is
-  correct and in the correct spot, it will show a green check mark.
+- To play the game, you have to enter a real 5 letter English word.
+  If the wrong letter got quessed, it will show a red cross. When
+  you guess a correct letter but its in the wrong spot, it will show
+  a red circle. If the letter is correct and in the correct spot, it
+  will show a green check mark.
     """
 
     rprint(Panel(
@@ -126,7 +127,7 @@ def play_wordle():
                 score += 1
                 break
 
-        print(f" {ug[0]}  {ug[1]}  {ug[2]}  {ug[3]}  {ug[4]}")
+        print(f" {ug[0]} {ug[1]} {ug[2]} {ug[3]} {ug[4]}")
         rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
 
         if user_guess == computer_choice:
@@ -172,11 +173,11 @@ def check_letters_word(user, computer):
 
     for index, letter in enumerate(user):
         if letter == computer[index]:
-            emoji += ":white_check_mark: "
+            emoji += " :white_check_mark: "
         elif letter in computer:
-            emoji += ":o: "
+            emoji += " :o: "
         else:
-            emoji += ":cross_mark: "
+            emoji += " :cross_mark: "
 
     return emoji
 
@@ -189,9 +190,9 @@ def check_name_input(name):
     try:
         if not all(x.isalpha() or x.isspace() for x in name):
             raise ValueError(
-                "Name can only be alphabetical letters and spaces,")
+                "Name can only be alphabetical letters and spaces")
     except ValueError as e:
-        print(f"Invalid name : {e} please try again.\n")
+        print(f"Invalid name : \n{e}\nPlease try again.\n")
         return False
 
     return True
@@ -213,7 +214,7 @@ def check_country_input(country):
                     "Country name wont work with symbols or special characters"
                     )
         except ValueError as e:
-            print(f"Invalid country : {e}, please try again.\n")
+            print(f"Invalid country : \n{e}\nPlease try again.\n")
             return False
 
     return True
@@ -231,9 +232,9 @@ def check_user_input(user):
         try:
             if user not in all_words:
                 raise ValueError(
-                    "The word needs to be a real 5 alphabetical letter word,")
+                    "Input needs to be a real 5 alphabetical letter word")
         except ValueError as e:
-            print(f"Invalid word : {e} please try again.\n")
+            print(f"Invalid word : \n{e}\nPlease try again.\n")
             return False
 
     return True

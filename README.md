@@ -1,8 +1,10 @@
 # Wordle
 
+![](assets/images/)
+
 [Click on this link to visit the Github page](https://obiwanbonobi.github.io/PP3/)
 
-[Click on this link to play the game on Heroku]()
+[Click on this link to play the game on Heroku](https://wordle-bo-abd372c9b403.herokuapp.com/)
 
 <br>
 
@@ -20,7 +22,6 @@
     * [Libraries](#libraries)
 - [Testing](#testing)
     * [Python validation](#python-validation)
-    * [Testing on devices and browsers](#testing-on-devices-and-browsers)
 - [Bug fixes](#bug-fixes)
 - [Deployment](#deployment)
     * [Github deployment](#github-deployment)
@@ -39,9 +40,13 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 
 ## My vision for the game
 
+In envisioning the Wordle game, my goal was to cultivate an engaging and intellectually stimulating experience for players. I designed the game to strike a perfect balance between challenge and enjoyment. The core concept centers around guessing a hidden five-letter word within a limited number of attempts, fostering a sense of accomplishment when the correct word is uncovered. To enhance the game's appeal, I incorporated a diverse and dynamic word bank, keeping players on their toes with an ever-evolving linguistic challenge.
+
 <br>
 
 # Features
+
+![](assets/images/)
 
 <br>
 
@@ -56,6 +61,7 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 
 # Design
 
+![](assets/images/)
 
 <br>
 
@@ -64,9 +70,11 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 - This project is written in Python
 - [ChatGPT](https://chat.openai.com/) helped me with articulating myself better in the readme introduction.
 - [Github](https://github.com/) was used to create a repository with the help of The Code Institute template.
-- I did all my coding with the program VS Code, [Visual Studio Code](https://code.visualstudio.com/)
+- [Heroku](https://heroku.com/) was used to deploy my game.
+- [Visual Studio Code](https://code.visualstudio.com/) is where I did all my coding.
 - [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
 - [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
+
 
 ## Lucid Flowchart
 
@@ -74,7 +82,7 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 
 <br>
 
-![Balsemiq](assets/images/flow_chart.png)
+![Flow Chart](assets/images/flow_chart.png)
 
 <br>
 
@@ -84,7 +92,7 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 
 <br>
 
-![Balsemiq](assets/images/google_sheets.png)
+![Google Sheets](assets/images/google_sheets.png)
 
 <br>
 
@@ -101,21 +109,21 @@ I got my libraries from different websites from the Code Institure project calle
 
 # Testing
 
+I did extensive testing to make sure my code has no bugs. Everything in my code works as it should.
+
 ## Python linter
 
 <details>
-<summary>The first time I put my code through the Python linter test, the program came up with some minor isseus. After fixing these minor issues the code came back without issues.</summary>
+<summary>The first time I put my code through [The Code institutes Python linter](https://pep8ci.herokuapp.com/), the code came up with some minor isseus. After fixing these minor issues the code came back without issues.</summary>
 
 <br>
 
-![Balsemiq](assets/images/python_linter_1.png)\
-![Balsemiq](assets/images/python_linter_2.png)\
-![Balsemiq](assets/images/python_linter_3.png)\
-![Balsemiq](assets/images/python_linter_4.png)
+![Python Linter](assets/images/python_linter_1.png)\
+![Python Linter](assets/images/python_linter_2.png)\
+![Python Linter](assets/images/python_linter_3.png)\
+![Python Linter](assets/images/python_linter_4.png)
 
 </details>
-
-## Testing on devices and browsers
 
 <br>
 
@@ -130,6 +138,8 @@ I got my libraries from different websites from the Code Institure project calle
     * ERROR: Could not find a version that satisfies the requirement pywin32==306 (from versions: none)
     * ERROR: No matching distribution found for pywin32==306<br>
 I googled it online and [this forum](https://stackoverflow.com/questions/50026190/heroku-fails-to-install-pywin32-library) told me to just delete "pywin32==306" from my requirements file.
+
+<b>I have not noticed any existing bugs.</b>
 
 <br>
 
@@ -171,7 +181,7 @@ To clone this repository, you have to :
   - Type git clone, and then paste the URL you copied earlier.
   - Press Enter to create your local clone.
 
-You can see deployed game [here]().
+You can see deployed game [here](https://wordle-bo-abd372c9b403.herokuapp.com/).
 
 <br>
 
