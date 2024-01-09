@@ -92,23 +92,6 @@ def get_user_input():
     return name_input, country_input
 
 
-def play_game_again():
-    """
-    Asks the user if they want to play Wordle again. Then exits the game if n is pressed, and
-    starts the game again when y is pressed.
-    """
-    play_game_input = input("Ready to play? y/n\n").lower()
-
-    if play_game_input == "y":
-        print("\nLet's play Wordle!\n")
-        get_user_input()
-    elif play_game_input == "n":
-        print("Exiting game...\n")
-        sys.exit()
-    else:
-        print("Invalid option, type either y or n.\n")
-
-
 def play_wordle():
     """
     Starts the wordle game. The computer chooses a random word from the imported words list.
@@ -131,10 +114,10 @@ def play_wordle():
         while True:
             user_guess = input(f"Guess {guesses_left} : ").upper()
             ug = user_guess
-            score += 1
             print()
 
             if check_user_input(user_guess):
+                score += 1
                 break
 
         print(f" {ug[0]}  {ug[1]}  {ug[2]}  {ug[3]}  {ug[4]}")
@@ -148,6 +131,23 @@ def play_wordle():
     else:
         rprint(f"[black on red]    You lost, the correct word was {computer_choice}    ")
         update_and_show_leaderboard(score)
+
+
+def play_game_again():
+    """
+    Asks the user if they want to play Wordle again. Then exits the game if n is pressed, and
+    starts the game again when y is pressed.
+    """
+    play_game_input = input("Do you want to play again? y/n\n").lower()
+
+    if play_game_input == "y":
+        print("\nLet's play Wordle!\n")
+        get_user_input()
+    elif play_game_input == "n":
+        print("Exiting game...\n")
+        sys.exit()
+    else:
+        print("Invalid option, type either y or n.\n")
 
 
 def check_letters_word(user, computer):
@@ -237,14 +237,24 @@ def update_leaderboard(data, cell):
 
 def update_and_show_leaderboard(data):
     """
-    Updates the guesses column in the leaderboard sheet with the score that he user got. 
-    Then shows the leaderboard in the terminal and asks if the user wants to play again.
+    First updates the score inside the leaderboard sheet. Then asks the user if they
+    want to see the leaderboard. It asks the user if they want to play the game again 
+    if n is pressed, and if y is pressed will show the leaderboard asks the user if 
+    they want to play the game again.
     """
     update_leaderboard(data, 3)
-    get_leaderboard()
+
     print()
-    print("Do you want to play again?\n")
-    play_game_again()
+    see_leaderboard = input("Do you want to see the leaderboard? y/n\n").lower()
+    print()
+
+    if see_leaderboard == "y":
+        print("\nLet's see if you made the leaderboard...\n")
+        get_leaderboard()
+    elif see_leaderboard == "n":
+        play_game_again()
+    else:
+        print("Invalid option, type either y or n.\n")
 
 
 def get_leaderboard():
@@ -272,6 +282,7 @@ def get_leaderboard():
         Guesses :\t{top_score[i][2]}"""))
 
     print()
+    play_game_again()
 
 
 def main():
