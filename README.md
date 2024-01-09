@@ -151,6 +151,7 @@ I did extensive testing to make sure my code has no bugs. Everything in my code 
     * ERROR: Could not find a version that satisfies the requirement pywin32==306 (from versions: none)
     * ERROR: No matching distribution found for pywin32==306<br>
 I googled it online and [this forum](https://stackoverflow.com/questions/50026190/heroku-fails-to-install-pywin32-library) told me to just delete "pywin32==306" from my requirements file.
+- My Favicon wasn't working because I forgot to set up the correct path to the file.
 
 <b>I have not noticed any existing bugs.</b>
 

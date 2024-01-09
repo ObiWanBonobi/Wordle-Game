@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
 from rich.console import Console
-console = Console(width=78)
+console = Console(width=79)
 
 
 # API setup
@@ -30,7 +30,7 @@ def display_wordle():
     Displays the start page with a fun titel and starts the rules function.
     """
     print()
-    console.rule("[red]:books: A Python Terminal Game :books:")
+    console.rule("[red]:books:  A Python Terminal Game :books:")
     print(r"""
 .------------..------------..------------..-----------..----------..----------.
 | ___    ___ ||    ____    || _______    || _______   || _____    || ________ |
@@ -42,7 +42,7 @@ def display_wordle():
 |            ||            ||            ||           ||          ||          |
 '------------''------------''------------''-----------''----------''----------'
     """)
-    console.rule("[red]:books: By Bo de Groot :books:")
+    console.rule("[red]:books:  By Bo de Groot :books:")
     print()
 
     show_rules()
@@ -58,7 +58,7 @@ def show_rules():
 
     if read_rules == "y":
         print()
-        console.rule("[red]:clipboard: Rules :clipboard:")
+        console.rule("[red]:clipboard:  Rules :clipboard:")
         print("""
 To start the game :
 - First add your name. Make sure your name is only created with alphabetical
