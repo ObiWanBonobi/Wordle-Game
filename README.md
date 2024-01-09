@@ -56,7 +56,6 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 
 # Design
 
-## Colour scheme
 
 <br>
 
@@ -104,12 +103,17 @@ I got my libraries from different websites from the Code Institure project calle
 
 ## Python linter
 
-The first time I put my code through the Python linter test, the program came up with some minor isseus. After fixing these minor issues the code came back without issues. 
+<details>
+<summary>The first time I put my code through the Python linter test, the program came up with some minor isseus. After fixing these minor issues the code came back without issues.</summary>
+
+<br>
 
 ![Balsemiq](assets/images/python_linter_1.png)\
 ![Balsemiq](assets/images/python_linter_2.png)\
 ![Balsemiq](assets/images/python_linter_3.png)\
 ![Balsemiq](assets/images/python_linter_4.png)
+
+</details>
 
 ## Testing on devices and browsers
 

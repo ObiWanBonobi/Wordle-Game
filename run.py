@@ -30,42 +30,47 @@ def display_start_menu():
     Displays the start page with a fun titel and the rules for the game.
     """
     title_banner = r"""
-.--------------..--------------..--------------..--------------..--------------..--------------.
-| _____  _____ ||     ____     ||  _______     ||  ________    ||   _____      ||  _________   |
-||_   _||_   _|||   .'    `.   || |_   __ \    || |_   ___ `.  ||  |_   _|     || |_   ___  |  |
-|  | | /\ | |  ||  /  .--.  \  ||   | |__) |   ||   | |   `. \ ||    | |       ||   | |_  \_|  |
-|  | |/  \| |  ||  | |    | |  ||   |  __ /    ||   | |    | | ||    | |   _   ||   |  _|  _   |
-|  |   /\   |  ||  \  `--'  /  ||  _| |  \ \_  ||  _| |___.' / ||   _| |__/ |  ||  _| |___/ |  |
-|  |__/  \__|  ||   `.____.'   || |____| |___| || |________.'  ||  |________|  || |_________|  |
-|              ||              ||              ||              ||              ||              |
-'--------------''--------------''--------------''--------------''--------------''--------------'
+.------------..------------..------------..-----------..----------..----------.
+| ___    ___ ||    ____    || _______    || _______   || _____    || ________ |
+||   |  |   |||  .'    `.  |||_   __ \   |||   ___ `. |||_   _|   |||   ___  ||
+| | | /\ | | || /  .--.  \ ||  | |__) |  || | |   `. \||  | |     || | |_  \_||
+| | |/  \| | || | |    | | ||  |  __ /   || | |    | |||  | |   _ || |  _|  _ |
+| |   /\   | || \  `--'  / || _| |  \ \_ || | |___.' /|| _| |__/ ||| | |___/ ||
+| |__/  \__| ||  `.____.'  |||____| |___||||_______.' |||________||||________||
+|            ||            ||            ||           ||          ||          |
+'------------''------------''------------''-----------''----------''----------'
     """
 
     wordle_rules = """
 To start the game :
-- First add your name. Make sure your name is only created with alphabetical letters.
+- First add your name. Make sure your name is only created with alphabetical
+  letters.
 - Then fill in the County you're from, make sure it's a real country.
-- To play the game, you have to enter a real 5 letter English word. If the wrong letter got quessed, 
-  it will show a red cross. When you guess a correct letter but its in the wrong spot, it will show 
-  a red circle. If the letter is correct and in the correct spot, it will show a green check mark. 
+- To play the game, you have to enter a real 5 letter English word. If the
+  wrong letter got quessed, it will show a red cross. When you guess a correct
+  letter but its in the wrong spot, it will show a red circle. If the letter is
+  correct and in the correct spot, it will show a green check mark.
     """
 
-    rprint(Panel(title_banner, style="bold",
+    rprint(Panel(
+            title_banner, style="bold",
             title=":books: A Python Terminal Game :books:",
             subtitle=":books: By Bo de Groot :books:"))
     print()
-    rprint(Panel(wordle_rules, style="bold",
+    rprint(Panel(
+            wordle_rules, style="bold",
             title=":clipboard: Rules :clipboard:",
             subtitle=":cross_mark: :o: :white_check_mark:"))
 
 
 def get_user_input():
     """
-    Input for the users name and country. The name input will come up with an error if anything
-    other than alphabetical letters and spaces are used. The country input will come back with an
-    error if the input doesn't match any of the countries in the countries file, also can't have
-    any special characters and or symbols. Then updates the Google leaderboard sheet with the name
-    and country.
+    Input for the users name and country. The name input will come up with an
+    error if anything other than alphabetical letters and spaces are used. The
+    country input will come back with an error if the input doesn't match any
+    of the countries in the countries file, also can't have any special
+    characters and or symbols. Then updates the Google leaderboard sheet with
+    the name and country.
     """
     console.rule("[red]User Data :")
     print()
@@ -94,11 +99,12 @@ def get_user_input():
 
 def play_wordle():
     """
-    Starts the wordle game. The computer chooses a random word from the imported words list.
-    The user can start guessing 5 letter words, that get checked if the input is a real 5 letter
-    word. The score goes up one point if it's a real word. And prints the word with corresponding
-    emojis underneath the input word. When the user guesses the word correctly or after 6 tries
-    the user will be asked if they want to see the leaderboard.
+    Starts the wordle game. The computer chooses a random word from the
+    imported words list. The user can start guessing 5 letter words, that get
+    checked if the input is a real 5 letter word. The score goes up one point
+    if it's a real word. And prints the word with corresponding emojis
+    underneath the input word. When the user guesses the word correctly or
+    after 6 tries the user will be asked if they want to see the leaderboard.
     """
     with open("text_files/words.txt", "r", encoding="cp1252") as f:
         all_words = f.read()
@@ -124,19 +130,24 @@ def play_wordle():
         rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
 
         if user_guess == computer_choice:
-            rprint("[black on green]    Congratulations, you guessed the correct word!    ")
+            rprint(
+                "[on green]    Congrats, you guessed the correct word!    "
+                )
             update_and_show_leaderboard(score)
             break
 
     else:
-        rprint(f"[black on red]    You lost, the correct word was {computer_choice}    ")
+        score += 1
+        rprint(
+            f"[on red]    You lost. The correct word was {computer_choice}    "
+        )
         update_and_show_leaderboard(score)
 
 
 def play_game_again():
     """
-    Asks the user if they want to play Wordle again. Then exits the game if n is pressed, and
-    starts the game again when y is pressed.
+    Asks the user if they want to play Wordle again. Then exits the game if n
+    is pressed, and starts the game again when y is pressed.
     """
     play_game_input = input("Do you want to play again? y/n\n").lower()
 
@@ -172,12 +183,13 @@ def check_letters_word(user, computer):
 
 def check_name_input(name):
     """
-    Validation function for name input. Inside the try, Raises ValueError if the name
-    input is something other than alphabetical letters or spaces.
+    Validation function for name input. Inside the try, Raises ValueError if
+    the name input is something other than alphabetical letters or spaces.
     """
     try:
         if not all(x.isalpha() or x.isspace() for x in name):
-            raise ValueError("Name can only be alphabetical letters and spaces,")
+            raise ValueError(
+                "Name can only be alphabetical letters and spaces,")
     except ValueError as e:
         print(f"Invalid name : {e} please try again.\n")
         return False
@@ -187,8 +199,8 @@ def check_name_input(name):
 
 def check_country_input(country):
     """
-    Validation function for country input. Inside the try, Raises ValueError if the country
-    input is not in the countries list.
+    Validation function for country input. Inside the try, Raises ValueError if
+    the country input is not in the countries list.
     """
     country_input_strip = country.strip()
 
@@ -198,9 +210,10 @@ def check_country_input(country):
         try:
             if country_input_strip not in country_file:
                 raise ValueError(
-                    "Country input wont work with symbols and or special characters,")
+                    "Country name wont work with symbols or special characters"
+                    )
         except ValueError as e:
-            print(f"Invalid country : {e} please try again.\n")
+            print(f"Invalid country : {e}, please try again.\n")
             return False
 
     return True
@@ -208,8 +221,8 @@ def check_country_input(country):
 
 def check_user_input(user):
     """
-    Validation function for user input. Inside the try, Raises ValueError if the input
-    is not in the words list.
+    Validation function for user input. Inside the try, Raises ValueError if
+    the input is not in the words list.
     """
     with open("text_files/all_words.txt", "r", encoding="cp1252") as f:
         all_words_list = f.read()
@@ -217,7 +230,8 @@ def check_user_input(user):
 
         try:
             if user not in all_words:
-                raise ValueError("The word needs to be a real 5 alphabetical letter word,")
+                raise ValueError(
+                    "The word needs to be a real 5 alphabetical letter word,")
         except ValueError as e:
             print(f"Invalid word : {e} please try again.\n")
             return False
@@ -237,21 +251,21 @@ def update_leaderboard(data, cell):
 
 def update_and_show_leaderboard(data):
     """
-    First updates the score inside the leaderboard sheet. Then asks the user if they
-    want to see the leaderboard. It asks the user if they want to play the game again 
-    if n is pressed, and if y is pressed will show the leaderboard asks the user if 
-    they want to play the game again.
+    First updates the score inside the leaderboard sheet. Then asks the user if
+    they want to see the leaderboard. It asks the user if they want to play the
+    game again if n is pressed, and if y is pressed will show the leaderboard
+    asks the user if they want to play the game again.
     """
     update_leaderboard(data, 3)
 
     print()
-    see_leaderboard = input("Do you want to see the leaderboard? y/n\n").lower()
+    leaderboard = input("Do you want to see the leaderboard? y/n\n").lower()
     print()
 
-    if see_leaderboard == "y":
+    if leaderboard == "y":
         print("\nLet's see if you made the leaderboard...\n")
         get_leaderboard()
-    elif see_leaderboard == "n":
+    elif leaderboard == "n":
         play_game_again()
     else:
         print("Invalid option, type either y or n.\n")
@@ -259,8 +273,8 @@ def update_and_show_leaderboard(data):
 
 def get_leaderboard():
     """
-    Shows the top 10 users with the lowest guesses from the leaderboard sheet after y 
-    is pressed by the user in the update_and_show_leaderboard function.
+    Shows the top 10 users with the lowest guesses from the leaderboard sheet
+    after y is pressed by the user in the update_and_show_leaderboard function.
     """
     leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
 
