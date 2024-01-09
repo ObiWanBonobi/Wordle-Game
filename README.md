@@ -22,6 +22,7 @@
     * [Libraries](#libraries)
 - [Testing](#testing)
     * [Python validation](#python-validation)
+    * [HTML validation](#html-validation)
 - [Bug fixes](#bug-fixes)
 - [Deployment](#deployment)
     * [Github deployment](#github-deployment)
@@ -74,6 +75,7 @@ In envisioning the Wordle game, my goal was to cultivate an engaging and intelle
 - [Visual Studio Code](https://code.visualstudio.com/) is where I did all my coding.
 - [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
 - [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
+- [Favicon](https://favicon.io/) was used to create my own favicon for the game.
 
 
 ## Lucid Flowchart
@@ -111,7 +113,18 @@ I got my libraries from different websites from the Code Institure project calle
 
 I did extensive testing to make sure my code has no bugs. Everything in my code works as it should.
 
-## Python linter
+## HTML validation
+
+<details>
+<summary>The HTML validator came back without any issues. I used [this website](https://validator.w3.org/) to test my code.</summary>
+
+<br>
+
+![HTML validation](assets/images/html_validator.png)
+
+</details>
+
+## Python validation
 
 <details>
 <summary>The first time I put my code through [The Code institutes Python linter](https://pep8ci.herokuapp.com/), the code came up with some minor isseus. After fixing these minor issues the code came back without issues.</summary>

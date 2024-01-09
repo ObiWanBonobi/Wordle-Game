@@ -60,15 +60,15 @@ def show_rules():
         print()
         console.rule("[red]:clipboard: Rules :clipboard:")
         print("""
-        To start the game :
-        - First add your name. Make sure your name is only created with
-        alphabetical letters.
-        - Then fill in the country you're from, make sure it's a real country.
-        - To play the game, you have to enter a real 5 letter English word. If
-        the wrong letter got quessed, it will show a red cross. When you guess
-        a correct letter but its in the wrong spot, it will show a red circle.
-        If the letter is correct and in the correct spot, it will show a green
-        check mark. Guess the correct 5 letter word.
+To start the game :
+- First add your name. Make sure your name is only created with alphabetical
+  letters.
+- Then fill in the country you're from, make sure it's a real country.
+- To play the game, you have to enter a real 5 letter English word. If the
+  wrong letter got quessed, it will show a red cross. When you guess a correct
+  letter but its in the wrong spot, it will show a red circle. If the letter is
+  correct and in the correct spot, it will show a green check mark. Guess the
+  correct 5 letter word.
         """)
         console.rule("[red]:cross_mark: :o: :white_check_mark: ")
         print()
