@@ -47,7 +47,8 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 # Future features
 
 - I want to change the code around so that the guesses get updated if you decide to play again. And it will copy the last name and country used. So the user would only have to fill out the name and country once.
-- I want to change the emoji's to having the background of the letter in a different colour for better readability and flow. 
+- I want to change the emoji's to having the background of the letter in a different colour for better readability and flow.
+- I want the add the alphabet. Were the letters background changes to either red or yellow, when the wrong letter or the letter was in the wrong spot gets guesssed.
 
 <br>
 

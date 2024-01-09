@@ -132,21 +132,13 @@ def play_wordle():
 
         if user_guess == computer_choice:
             print("Congratulations, you guessed the correct word!\n")
-            update_leaderboard(score, 3)
-            get_leaderboard()
-            print()
-            print("Do you want to play again?\n")
-            play_game_again()
+            update_and_show_leaderboard(score)
             break
 
     else:
-        score = 7
-        print(f"The correct word was {computer_choice}\n")
-        update_leaderboard(score, 3)
-        get_leaderboard()
-        print()
-        print("Do you want to play again?\n")
-        play_game_again()
+        score += 1
+        print(f"You lost, the correct word was {computer_choice}\n")
+        update_and_show_leaderboard(score)
 
 
 def check_letters_word(user, computer):
@@ -226,7 +218,7 @@ def check_user_input(user):
 
 def update_leaderboard(data, cell):
     """
-    Updates the leaderboard Goodle sheet with the name, country and score
+    Updates the leaderboard Google sheet with the name, country and score
     """
     leaderboard_sheet = SHEET.worksheet("leaderboard")
     column_values = leaderboard_sheet.col_values(cell)
@@ -234,28 +226,40 @@ def update_leaderboard(data, cell):
     leaderboard_sheet.update_cell(column_numbers, cell, data)
 
 
+def update_and_show_leaderboard(data):
+    """
+    Updates the guesses column in the leaderboard sheet with the score that he user got. 
+    Then shows the leaderboard in the terminal and asks if the user wants to play again.
+    """
+    update_leaderboard(data, 3)
+    get_leaderboard()
+    print()
+    print("Do you want to play again?\n")
+    play_game_again()
+
+
 def get_leaderboard():
     """
-    Shows the last 10 users on the leaderboard after the game is finished.
+    Shows the top 10 users with the lowest guesses from the leaderboard sheet after the 
+    game is finished.
     """
     leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
 
     for data in leaderboard:
         data[1] = data[1]
 
-    update_data = sorted(leaderboard, key=lambda x: int(x[2]), reverse=False)
-    ud = update_data
+    top_score = sorted(leaderboard, key=lambda x: int(x[2]), reverse=False)
 
-    if len(update_data) < 10:
-        count = len(update_data)
+    if len(top_score) < 10:
+        count = len(top_score)
     else:
         count = 10
 
-    rprint(Panel("Top 10 lowest guesses :\n"))
+    rprint(Panel("Top 10 lowest guesses :"))
 
     for i in range(0, count):
-        rprint(Panel(f"""{i+1}\t{ud[i][0]} \tfrom\t{ud[i][1]}
-        Guesses :\t{ud[i][2]}"""))
+        rprint(Panel(f"""{i+1}\t{top_score[i][0]} \tfrom\t{top_score[i][1]}
+        Guesses :\t{top_score[i][2]}"""))
     print()
 
 
