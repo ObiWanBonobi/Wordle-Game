@@ -234,6 +234,31 @@ def update_leaderboard(data, cell):
     leaderboard_sheet.update_cell(column_numbers, cell, data)
 
 
+def get_leaderboard():
+    """
+    Shows the last 10 users on the leaderboard after the game is finished.
+    """
+    leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
+
+    for data in leaderboard:
+        data[1] = data[1]
+
+    update_data = sorted(leaderboard, key=lambda x: int(x[2]), reverse=False)
+    ud = update_data
+
+    if len(update_data) < 10:
+        count = len(update_data)
+    else:
+        count = 10
+
+    rprint(Panel("Top 10 lowest guesses :\n"))
+
+    for i in range(0, count):
+        rprint(Panel(f"""{i+1}\t{ud[i][0]} \tfrom\t{ud[i][1]}
+        Guesses :\t{ud[i][2]}"""))
+    print()
+
+
 def main():
     """
     Runs all the program functions
