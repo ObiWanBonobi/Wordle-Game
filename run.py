@@ -6,6 +6,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
+from rich.console import Console
+console = Console(width=100)
 
 
 # API setup
@@ -25,27 +27,27 @@ SHEET = GSPREAD_CLIENT.open("wordle_bo")
 
 def display_start_menu():
     """
-    Displays the start page with a fun titel and the name input
+    Displays the start page with a fun titel and the rules for the game.
     """
     title_banner = r"""
-    .--------------..--------------..--------------..--------------..--------------..--------------.
-    | _____  _____ ||     ____     ||  _______     ||  ________    ||   _____      ||  _________   |
-    ||_   _||_   _|||   .'    `.   || |_   __ \    || |_   ___ `.  ||  |_   _|     || |_   ___  |  |
-    |  | | /\ | |  ||  /  .--.  \  ||   | |__) |   ||   | |   `. \ ||    | |       ||   | |_  \_|  |
-    |  | |/  \| |  ||  | |    | |  ||   |  __ /    ||   | |    | | ||    | |   _   ||   |  _|  _   |
-    |  |   /\   |  ||  \  `--'  /  ||  _| |  \ \_  ||  _| |___.' / ||   _| |__/ |  ||  _| |___/ |  |
-    |  |__/  \__|  ||   `.____.'   || |____| |___| || |________.'  ||  |________|  || |_________|  |
-    |              ||              ||              ||              ||              ||              |
-    '--------------''--------------''--------------''--------------''--------------''--------------'
+.--------------..--------------..--------------..--------------..--------------..--------------.
+| _____  _____ ||     ____     ||  _______     ||  ________    ||   _____      ||  _________   |
+||_   _||_   _|||   .'    `.   || |_   __ \    || |_   ___ `.  ||  |_   _|     || |_   ___  |  |
+|  | | /\ | |  ||  /  .--.  \  ||   | |__) |   ||   | |   `. \ ||    | |       ||   | |_  \_|  |
+|  | |/  \| |  ||  | |    | |  ||   |  __ /    ||   | |    | | ||    | |   _   ||   |  _|  _   |
+|  |   /\   |  ||  \  `--'  /  ||  _| |  \ \_  ||  _| |___.' / ||   _| |__/ |  ||  _| |___/ |  |
+|  |__/  \__|  ||   `.____.'   || |____| |___| || |________.'  ||  |________|  || |_________|  |
+|              ||              ||              ||              ||              ||              |
+'--------------''--------------''--------------''--------------''--------------''--------------'
     """
 
     wordle_rules = """
-    To start the game :
-    - First add your name. Make sure your name is only created with alphabetical letters.
-    - Then fill in the County you're from, make sure it's a real country.
-    - To play the game, you have to enter a real 5 letter English word. If the wrong letter got quessed, 
-    it will show a red cross. When you guess a correct letter but its in the wrong spot, it will show a 
-    red circle. If the letter is correct and in the correct spot, it will show a green check mark. 
+To start the game :
+- First add your name. Make sure your name is only created with alphabetical letters.
+- Then fill in the County you're from, make sure it's a real country.
+- To play the game, you have to enter a real 5 letter English word. If the wrong letter got quessed, 
+  it will show a red cross. When you guess a correct letter but its in the wrong spot, it will show 
+  a red circle. If the letter is correct and in the correct spot, it will show a green check mark. 
     """
 
     rprint(Panel(title_banner, style="bold",
@@ -62,8 +64,12 @@ def get_user_input():
     Input for the users name and country. The name input will come up with an error if anything
     other than alphabetical letters and spaces are used. The country input will come back with an
     error if the input doesn't match any of the countries in the countries file, also can't have
-    any special characters and or symbols.
+    any special characters and or symbols. Then updates the Google leaderboard sheet with the name
+    and country.
     """
+    console.rule("[red]User Data :")
+    print()
+
     while True:
         name_input = input("Enter your name : \n").title()
         print("\nChecking if name is valid...\n")
@@ -76,11 +82,12 @@ def get_user_input():
         print("\nChecking if country is valid...\n")
 
         if check_country_input(country_input):
-            print(f"Hello {name_input} from {country_input}!\n")
+            print(f"Hello {name_input} from {country_input}!")
             update_leaderboard(name_input, 1)
             update_leaderboard(country_input, 2)
             break
 
+    print()
     play_wordle()
     return name_input, country_input
 
@@ -105,8 +112,10 @@ def play_game_again():
 def play_wordle():
     """
     Starts the wordle game. The computer chooses a random word from the imported words list.
-    The user can start guessing 5 letter words, that get checked if they're real 5 letter
-    words. The score goes up one point. And prints the word with emojis to the terminal.
+    The user can start guessing 5 letter words, that get checked if the input is a real 5 letter
+    word. The score goes up one point if it's a real word. And prints the word with corresponding
+    emojis underneath the input word. When the user guesses the word correctly or after 6 tries
+    the user will be asked if they want to see the leaderboard.
     """
     with open("text_files/words.txt", "r", encoding="cp1252") as f:
         all_words = f.read()
@@ -115,7 +124,8 @@ def play_wordle():
     computer_choice = random.choice(words)
     score = 0
 
-    print("You have 6 guesses to find the 5 letter word :\n")
+    console.rule("[red]You have 6 guesses to find the 5 letter word :")
+    print(computer_choice)
 
     for guesses_left in range(1, 7):
         while True:
@@ -131,22 +141,21 @@ def play_wordle():
         rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
 
         if user_guess == computer_choice:
-            print("Congratulations, you guessed the correct word!\n")
+            rprint("[black on green]    Congratulations, you guessed the correct word!    ")
             update_and_show_leaderboard(score)
             break
 
     else:
-        score += 1
-        print(f"You lost, the correct word was {computer_choice}\n")
+        rprint(f"[black on red]    You lost, the correct word was {computer_choice}    ")
         update_and_show_leaderboard(score)
 
 
 def check_letters_word(user, computer):
     """
     Checks if the letters are :
-    - correct and in the correct spot and places a corresponding emoji
-    - if they are in the word and places a corresponding emoji
-    - if they are not in the word and places a corresponding emoji
+    - correct and in the correct spot and places a check mark emoji
+    - if they are in the word and places a circle emoji
+    - if they are not in the word and places a cross mark emoji
     """
     emoji = ""
 
@@ -164,11 +173,11 @@ def check_letters_word(user, computer):
 def check_name_input(name):
     """
     Validation function for name input. Inside the try, Raises ValueError if the name
-    input is something other than an alphabetical letters or spaces.
+    input is something other than alphabetical letters or spaces.
     """
     try:
         if not all(x.isalpha() or x.isspace() for x in name):
-            raise ValueError("Name input can only be alphabetical letters and spaces,")
+            raise ValueError("Name can only be alphabetical letters and spaces,")
     except ValueError as e:
         print(f"Invalid name : {e} please try again.\n")
         return False
@@ -240,8 +249,8 @@ def update_and_show_leaderboard(data):
 
 def get_leaderboard():
     """
-    Shows the top 10 users with the lowest guesses from the leaderboard sheet after the 
-    game is finished.
+    Shows the top 10 users with the lowest guesses from the leaderboard sheet after y 
+    is pressed by the user in the update_and_show_leaderboard function.
     """
     leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
 
@@ -255,11 +264,13 @@ def get_leaderboard():
     else:
         count = 10
 
-    rprint(Panel("Top 10 lowest guesses :"))
+    console.rule("[red]Top 10 lowest guesses :")
+    print()
 
     for i in range(0, count):
         rprint(Panel(f"""{i+1}\t{top_score[i][0]} \tfrom\t{top_score[i][1]}
         Guesses :\t{top_score[i][2]}"""))
+
     print()
 
 

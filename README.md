@@ -119,6 +119,7 @@ You can see deployed game [here]().
 - <b>English words</b> : I got the english 5 letter words from [The free dictionary](https://www.thefreedictionary.com/5-letter-words.htm).
 - <b>All words</b> : I got my list of all english words from a [GitHub account](https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt)
 - <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
+- <b>README</b> : I copied some of the Readme code from my previous projects [PP1](https://github.com/ObiWanBonobi/PP1/blob/main/README.md) and [PP2](https://github.com/ObiWanBonobi/PP2/tree/main).
 - <b>Python code</b> : I got a better understanding about Python code from these forums, websites and people :
   * [Enumerate()](https://www.geeksforgeeks.org/enumerate-in-python/)
   * I got help with a better understanding of Python from my brother in law [Steffen Bjerkenås](https://github.com/stebje). He told me I needed to change my words list and country list to a text and CSV files and move them into a seperate file for better readability.
@@ -126,6 +127,8 @@ You can see deployed game [here]().
   * [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
   * [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
   * I got my get_leaderboard function from [Pedro Cristo's](https://github.com/PedroCristo/portfolio_project_3/blob/main/run.py) project the hangmans game. I would've figured the code out myself, however I was running out of time and needed to finish the project on time.
+  * I learned a lot from the Code Institutes project [Love Sandwiches](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode)
+  *
 - <b>Python Library</b> : 
   * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation).
   * I got my ASCII terminal banner from [Naufalardhani website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07).
