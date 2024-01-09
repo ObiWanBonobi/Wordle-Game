@@ -80,6 +80,7 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 - I noticed that using country names that contained a space weren't working. I ended up changing the file to a csv file so that fixed it.
 - I noticed that some of the words in the words file were names and also words that noone will know. So I went through the list to delete them.
 - The leaderboard wasn't updating properly. I had the code written that you enter you name and country once and then the guesses will update after you finish playing the game. However when you wanted to play again only the leaderboard guesses would update and the rows would become out of sync. I fixed it by changing the code around that you fill in your name and country every time.
+- There was an issue with the score adding a point even if the wrong word was used. I had placed the score += 1 code in the wrong spot.
 
 <br>
 

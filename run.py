@@ -108,11 +108,11 @@ def play_wordle():
     score = 0
 
     console.rule("[red]You have 6 guesses to find the 5 letter word :")
-    print(computer_choice)
+    print()
 
     for guesses_left in range(1, 7):
         while True:
-            user_guess = input(f"Guess {guesses_left} : ").upper()
+            user_guess = input(f"Guess {guesses_left} : \n").upper()
             ug = user_guess
             print()
 
