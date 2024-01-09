@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from rich import print as rprint
 from rich.panel import Panel
 from rich.console import Console
-console = Console(width=70)
+console = Console(width=78)
 
 
 # API setup
@@ -25,43 +25,59 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("wordle_bo")
 
 
-def display_start_menu():
+def display_wordle():
     """
-    Displays the start page with a fun titel and the rules for the game.
+    Displays the start page with a fun titel and starts the rules function.
     """
-    title_banner = r"""
-.----------..---------..---------..----------..--------..---------.
-| _      _ ||   ___   || _____   || ______   || _      || _______ |
-|| |    | ||| .'   `. |||  __ \  |||  ___ `. ||| |     |||  ___  ||
-|| | /\ | |||/  .-.  \||| |__) | ||| |   `. \||| |     ||| |_  \_||
-|| |/  \| |||| |   | ||||  __ /  ||| |    | |||| |   _ |||  _|  _ |
-||   /\   |||\  `-'  /||| |  \ \ ||| |___.' /||| |__/ |||| |___/ ||
-||__/  \__||| `.___.' |||_|   \_||||______.' |||______||||_______||
-|          ||         ||         ||          ||        ||         |
-'----------''---------''---------''----------''--------''---------'
-    """
-
-    wordle_rules = """
-To start the game :
-- First add your name. Make sure your name is only created with
-  alphabetical letters.
-- Then fill in the County you're from, make sure it's a real country.
-- To play the game, you have to enter a real 5 letter English word.
-  If the wrong letter got quessed, it will show a red cross. When
-  you guess a correct letter but its in the wrong spot, it will show
-  a red circle. If the letter is correct and in the correct spot, it
-  will show a green check mark.
-    """
-
-    rprint(Panel(
-            title_banner, style="bold",
-            title=":books: A Python Terminal Game :books:",
-            subtitle=":books: By Bo de Groot :books:"))
     print()
-    rprint(Panel(
-            wordle_rules, style="bold",
-            title=":clipboard: Rules :clipboard:",
-            subtitle=":cross_mark: :o: :white_check_mark:"))
+    console.rule("[red]:books: A Python Terminal Game :books:")
+    print(r"""
+.------------..------------..------------..-----------..----------..----------.
+| ___    ___ ||    ____    || _______    || _______   || _____    || ________ |
+||   |  |   |||  .'    `.  |||_   __ \   |||   ___ `. |||_   _|   |||   ___  ||
+| | | /\ | | || /  .--.  \ ||  | |__) |  || | |   `. \||  | |     || | |_  \_||
+| | |/  \| | || | |    | | ||  |  __ /   || | |    | |||  | |   _ || |  _|  _ |
+| |   /\   | || \  `--'  / || _| |  \ \_ || | |___.' /|| _| |__/ ||| | |___/ ||
+| |__/  \__| ||  `.____.'  |||____| |___||||_______.' |||________||||________||
+|            ||            ||            ||           ||          ||          |
+'------------''------------''------------''-----------''----------''----------'
+    """)
+    console.rule("[red]:books: By Bo de Groot :books:")
+    print()
+
+    show_rules()
+
+
+def show_rules():
+    """
+    Shows the rules when asked for. When y is pressed it wil show the rules,
+    then it will get the user name. When n is pressed, the rules will be
+    skipped.
+    """
+    read_rules = input("Do you want to read the rules? y/n\n").lower()
+
+    if read_rules == "y":
+        print()
+        console.rule("[red]:clipboard: Rules :clipboard:")
+        print("""
+        To start the game :
+        - First add your name. Make sure your name is only created with
+        alphabetical letters.
+        - Then fill in the country you're from, make sure it's a real country.
+        - To play the game, you have to enter a real 5 letter English word. If
+        the wrong letter got quessed, it will show a red cross. When you guess
+        a correct letter but its in the wrong spot, it will show a red circle.
+        If the letter is correct and in the correct spot, it will show a green
+        check mark. Guess the correct 5 letter word.
+        """)
+        console.rule("[red]:cross_mark: :o: :white_check_mark: ")
+        print()
+        get_user_input()
+    elif read_rules == "n":
+        print()
+        get_user_input()
+    else:
+        print("Invalid option, type either y or n.\n")
 
 
 def get_user_input():
@@ -127,7 +143,7 @@ def play_wordle():
                 score += 1
                 break
 
-        print(f" {ug[0]} {ug[1]} {ug[2]} {ug[3]} {ug[4]}")
+        print(f"  {ug[0]}  {ug[1]}  {ug[2]}  {ug[3]}  {ug[4]}")
         rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
 
         if user_guess == computer_choice:
@@ -302,10 +318,9 @@ def get_leaderboard():
 
 def main():
     """
-    Runs all the program functions
+    Starts the wordle game with the display first.
     """
-    display_start_menu()
-    get_user_input()
+    display_wordle()
 
 
 main()
