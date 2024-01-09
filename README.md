@@ -16,9 +16,10 @@
 - [Design](#design)
 - [Technologies used](#technologies-used)
     * [Lucid Flowchart](#lucid-flowchart)
+    * [Google Sheets](#google-sheets)
+    * [Libraries](#libraries)
 - [Testing](#testing)
     * [Python validation](#python-validation)
-    * [Lighthouse test](#lighthouse-test)
     * [Testing on devices and browsers](#testing-on-devices-and-browsers)
 - [Bug fixes](#bug-fixes)
 - [Deployment](#deployment)
@@ -30,11 +31,11 @@
 
 # Introduction
 
- I'm thrilled to present my very own Python-based Wordle game that promises to challenge and entertain you in equal measure. Dive into the realm of word-guessing, where you'll be tasked with unraveling a hidden five-letter word through strategic deduction and clever guessing.
+ I'm thrilled to present my very own Python-based Wordle game that promises to challenge and entertain you in equal measure. Dive into the realm of word-guessing, where you'll be tasked with unraveling a hidden five-letter word through strategic deduction and clever guessing. The users final "score" will be shown in the leaderboard option, if the user scores high enough.
 
 ## User experience
 
-The user experience in my Wordle game has been meticulously crafted to ensure both enjoyment and ease of play. 
+Wordle is a simple yet engaging word puzzle game that has gained popularity for its straightforward gameplay and addictive nature. That's why I decided to make my own version. The user experience for my Wordle game has been crafted to ensure both enjoyment and ease of play. The game is made for people who want to embark on a captivating journey of word discovery.
 
 ## My vision for the game
 
@@ -46,9 +47,10 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 
 # Future features
 
-- I want to change the code around so that the guesses get updated if you decide to play again. And it will copy the last name and country used. So the user would only have to fill out the name and country once.
+- I want to change the code around so that the "guesses" get updated if you decide to play again. And it will copy the last name and country used. So the user would only have to fill out the name and country once.
 - I want to change the emoji's to having the background of the letter in a different colour for better readability and flow.
 - I want the add the alphabet. Were the letters background changes to either red or yellow, when the wrong letter or the letter was in the wrong spot gets guesssed.
+- I want to add a feature where after finishing the game and seeing the leaderboard, you see the users score highlighted in the leaderboard. And if the the user scores outside the spectrum of the leaderboard, it will still show seperatly underneath.
 
 <br>
 
@@ -60,15 +62,54 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 
 # Technologies used
 
+- This project is written in Python
+- [ChatGPT](https://chat.openai.com/) helped me with articulating myself better in the readme introduction.
+- [Github](https://github.com/) was used to create a repository with the help of The Code Institute template.
+- I did all my coding with the program VS Code, [Visual Studio Code](https://code.visualstudio.com/)
+- [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
+- [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
+
 ## Lucid Flowchart
+
+[LucidChart](https://www.lucidchart.com/pages/) was used to create a flow chart for planning my project.
+
+<br>
+
+![Balsemiq](assets/images/flow_chart.png)
+
+<br>
+
+## Google Sheets
+
+[Google Sheets](https://www.google.com/sheets/about/) was used to create a leaderboard. After finishing the game, the leaderboard will be updated and the user has a choice to see if they want to see the leaderboard top 10 lowest guesses.
+
+<br>
+
+![Balsemiq](assets/images/google_sheets.png)
+
+<br>
+
+## Libraries
+
+I got my libraries from different websites from the Code Institure project called Love Sandwiches :
+- [<b>gspread</b>](https://docs.gspread.org/en/v5.10.0/) : The Code Institute helped me learn about that gspread is needed for connecting my Google Sheets to my python code.
+- [<b>sys</b>](https://codedamn.com/news/python/exit-python-program-from-terminal) : I used the sys.exit() for when the user wants to exit the game.
+- [<b>Rich</b>](https://rich.readthedocs.io/en/latest/introduction.html#installation) : I used the pannelling for the start page with Rich. Rich is also used to set the console width. And rprint() was used to print colourfull messages.
+- [<b>Random</b>](https://www.geeksforgeeks.org/python-random-module/) : I used the Random import to randomize the word chosen by the computer.
+- [<b>Credentials</b>](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) : The Code Institute helped me learn about credentials and that I needed them for my Google Sheets, which is used for my leaderboard list.
 
 <br>
 
 # Testing
 
-## Python validation
+## Python linter
 
-## Lighthouse test
+The first time I put my code through the Python linter test, the program came up with some minor isseus. After fixing these minor issues the code came back without issues. 
+
+![Balsemiq](assets/images/python_linter_1.png)\
+![Balsemiq](assets/images/python_linter_2.png)\
+![Balsemiq](assets/images/python_linter_3.png)\
+![Balsemiq](assets/images/python_linter_4.png)
 
 ## Testing on devices and browsers
 
@@ -81,6 +122,10 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 - I noticed that some of the words in the words file were names and also words that noone will know. So I went through the list to delete them.
 - The leaderboard wasn't updating properly. I had the code written that you enter you name and country once and then the guesses will update after you finish playing the game. However when you wanted to play again only the leaderboard guesses would update and the rows would become out of sync. I fixed it by changing the code around that you fill in your name and country every time.
 - There was an issue with the score adding a point even if the wrong word was used. I had placed the score += 1 code in the wrong spot.
+- When I deployed my repo for the first time it came up with this error :
+    * ERROR: Could not find a version that satisfies the requirement pywin32==306 (from versions: none)
+    * ERROR: No matching distribution found for pywin32==306<br>
+I googled it online and [this forum](https://stackoverflow.com/questions/50026190/heroku-fails-to-install-pywin32-library) told me to just delete "pywin32==306" from my requirements file.
 
 <br>
 
@@ -89,6 +134,20 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 ## Heroku deployment
 
 To deploy Your App to Heroku, you have to :
+- Create a Heroku account.
+- From the dashboard select create new app.
+- Enter a name for your app, it needs to be unique, and select your region then press create app.
+- Select settings at the top of your app page.
+- Press reveal config vars.
+- If the user is using google sheets in their project, you'll have to name your credentials file in the key input and copy and paste that credential file in the value input.
+- Also add PORT in key input and 8000 as value input.
+- Scroll down and press the add buildpack button.
+- From here press the Python icon and then the add buildpack button.
+- Add another builpack and press the Nodejs icon this time and then press add buildpack button again.
+- Scroll back up and select Deploy at the top of your app page.
+- Choose your deployment method, when choosing Github, you will have to connect to your account.
+- Then choose which repo you want to deploy and connect to it.
+- Choose if you want to deploy automatic or manual, and press deploy.
 
 ## Github deployment
 
@@ -114,23 +173,17 @@ You can see deployed game [here]().
 
 # Credits
 
-- <b>FlowChart</b> : I got some ideas for my flowchart from [this project](https://github.com/PedroCristo/portfolio_project_3) made by Pedro Cristo.
+- <b>FlowChart</b> : I got some ideas for my flowchart from [Pedro Cristo's PP3](https://github.com/PedroCristo/portfolio_project_3).
 - <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/).
-- <b>ChatGPT</b> : ChatGPT helped me with articulating myself better in the readme introduction.
 - <b>English words</b> : I got the english 5 letter words from [The free dictionary](https://www.thefreedictionary.com/5-letter-words.htm).
-- <b>All words</b> : I got my list of all english words from a [GitHub account](https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt)
+- <b>All words</b> : I got my list of all english words from [Charles Reid's Github](https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt)
 - <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
-- <b>README</b> : I copied some of the Readme code from my previous projects [PP1](https://github.com/ObiWanBonobi/PP1/blob/main/README.md) and [PP2](https://github.com/ObiWanBonobi/PP2/tree/main).
+- <b>README</b> : I copied some of the Readme code from my previous projects [PP1](https://github.com/ObiWanBonobi/PP1/blob/main/README.md) and [PP2](https://github.com/ObiWanBonobi/PP2/tree/main). I also got some ideas from [Gary Dolan's readme](https://github.com/GaryDolan/ci-p3-pokemon-portfolio).
 - <b>Python code</b> : I got a better understanding about Python code from these forums, websites and people :
-  * [Enumerate()](https://www.geeksforgeeks.org/enumerate-in-python/)
+  * I learned more about enumerate from the [Geeks for Geeks](https://www.geeksforgeeks.org/enumerate-in-python/) website.
   * I got help with a better understanding of Python from my brother in law [Steffen Bjerkenås](https://github.com/stebje). He told me I needed to change my words list and country list to a text and CSV files and move them into a seperate file for better readability.
   * [GeeksforGeeks.org](https://www.geeksforgeeks.org/pulling-a-random-word-or-string-from-a-line-in-a-text-file-in-python/) helped me with understanding how to get a random word from a text file.
-  * [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
-  * [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
   * I got my get_leaderboard function from [Pedro Cristo's](https://github.com/PedroCristo/portfolio_project_3/blob/main/run.py) project the hangmans game. I would've figured the code out myself, however I was running out of time and needed to finish the project on time.
-  * I learned a lot from the Code Institutes project [Love Sandwiches](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode)
-  *
-- <b>Python Library</b> : 
-  * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation).
-  * I got my ASCII terminal banner from [Naufalardhani website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07).
-  * I got my exit code from the [codedamn website](https://codedamn.com/news/python/exit-python-program-from-terminal).
+  * I learned a lot from the Code Institutes project [Love Sandwiches](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode).
+
+- <b>Most of my credit goes to the Code Institute program where I made notes on every section and got most of my ideas and code from there.</b>
