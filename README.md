@@ -34,7 +34,7 @@
 
 ## User experience
 
-The user experience in my Wordle game has been meticulously crafted to ensure both enjoyment and ease of play.
+The user experience in my Wordle game has been meticulously crafted to ensure both enjoyment and ease of play. 
 
 ## My vision for the game
 
@@ -45,6 +45,9 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 <br>
 
 # Future features
+
+- I want to change the code around so that the guesses get updated if you decide to play again. And it will copy the last name and country used. So the user would only have to fill out the name and country once.
+- I want to change the emoji's to having the background of the letter in a different colour for better readability and flow. 
 
 <br>
 
@@ -75,6 +78,7 @@ The user experience in my Wordle game has been meticulously crafted to ensure bo
 - When I ran the game after adding a validation for the word input, it kept going to the error that I wasn't using a real word. I started trouble shooting and found that I was comparing the user input with my english list. However my english list was in lowercase and my input I wanted the word to be in uppercase. So I changes the words file so that it returned in uppercase.
 - I noticed that using country names that contained a space weren't working. I ended up changing the file to a csv file so that fixed it.
 - I noticed that some of the words in the words file were names and also words that noone will know. So I went through the list to delete them.
+- The leaderboard wasn't updating properly. I had the code written that you enter you name and country once and then the guesses will update after you finish playing the game. However when you wanted to play again only the leaderboard guesses would update and the rows would become out of sync. I fixed it by changing the code around that you fill in your name and country every time.
 
 <br>
 
@@ -120,6 +124,7 @@ You can see deployed game [here]().
   * [GeeksforGeeks.org](https://www.geeksforgeeks.org/pulling-a-random-word-or-string-from-a-line-in-a-text-file-in-python/) helped me with understanding how to get a random word from a text file.
   * [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
   * [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
+  * I got my get_leaderboard function from [Pedro Cristo's](https://github.com/PedroCristo/portfolio_project_3/blob/main/run.py) project the hangmans game. I would've figured the code out myself, however I was running out of time and needed to finish the project on time.
 - <b>Python Library</b> : 
   * I got my colours from the [Rich library](https://rich.readthedocs.io/en/latest/introduction.html#installation).
   * I got my ASCII terminal banner from [Naufalardhani website](https://naufalardhani.medium.com/how-to-create-ascii-text-banner-for-command-line-project-85e75dc02b07).

@@ -41,11 +41,11 @@ def display_start_menu():
 
     wordle_rules = """
     To start the game :
-    - First add your name. Make sure your name is only created with letters and a maximum of 10 letters long.
+    - First add your name. Make sure your name is only created with alphabetical letters.
     - Then fill in the County you're from, make sure it's a real country.
     - To play the game, you have to enter a real 5 letter English word. If the wrong letter got quessed, 
     it will show a red cross. When you guess a correct letter but its in the wrong spot, it will show a 
-    red circle. If the letter is correct and in the correct spot, it will show a check mark. 
+    red circle. If the letter is correct and in the correct spot, it will show a green check mark. 
     """
 
     rprint(Panel(title_banner, style="bold",
@@ -77,22 +77,24 @@ def get_user_input():
 
         if check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!\n")
-            update_leaderboard(name_input, country_input)
+            update_leaderboard(name_input, 1)
+            update_leaderboard(country_input, 2)
             break
 
+    play_wordle()
     return name_input, country_input
 
 
-def ready_to_play_game():
+def play_game_again():
     """
-    Asks the user if they're ready to play Wordle. Then exits the game if n is pressed, and
-    starts the game when y is pressed.
+    Asks the user if they want to play Wordle again. Then exits the game if n is pressed, and
+    starts the game again when y is pressed.
     """
     play_game_input = input("Ready to play? y/n\n").lower()
 
     if play_game_input == "y":
         print("\nLet's play Wordle!\n")
-        play_wordle()
+        get_user_input()
     elif play_game_input == "n":
         print("Exiting game...\n")
         sys.exit()
@@ -103,7 +105,8 @@ def ready_to_play_game():
 def play_wordle():
     """
     Starts the wordle game. The computer chooses a random word from the imported words list.
-    The user can start guessing 5 letter words.
+    The user can start guessing 5 letter words, that get checked if they're real 5 letter
+    words. The score goes up one point. And prints the word with emojis to the terminal.
     """
     with open("text_files/words.txt", "r", encoding="cp1252") as f:
         all_words = f.read()
@@ -113,7 +116,6 @@ def play_wordle():
     score = 0
 
     print("You have 6 guesses to find the 5 letter word :\n")
-    print(computer_choice)
 
     for guesses_left in range(1, 7):
         while True:
@@ -130,19 +132,29 @@ def play_wordle():
 
         if user_guess == computer_choice:
             print("Congratulations, you guessed the correct word!\n")
-            print("Do you want to play again?")
-            update_leaderboard_score(int(score))
-            ready_to_play_game()
+            update_leaderboard(score, 3)
+            get_leaderboard()
+            print()
+            print("Do you want to play again?\n")
+            play_game_again()
             break
 
     else:
+        score = 7
         print(f"The correct word was {computer_choice}\n")
+        update_leaderboard(score, 3)
+        get_leaderboard()
+        print()
+        print("Do you want to play again?\n")
+        play_game_again()
 
 
 def check_letters_word(user, computer):
     """
-    Checks if the letters are correct and in the correct spot. If they are in the
-    word and if they are not in the word.
+    Checks if the letters are :
+    - correct and in the correct spot and places a corresponding emoji
+    - if they are in the word and places a corresponding emoji
+    - if they are not in the word and places a corresponding emoji
     """
     emoji = ""
 
@@ -185,7 +197,7 @@ def check_country_input(country):
         try:
             if country_input_strip not in country_file:
                 raise ValueError(
-                "Country input wont work with symbols and or special characters,")
+                    "Country input wont work with symbols and or special characters,")
         except ValueError as e:
             print(f"Invalid country : {e} please try again.\n")
             return False
@@ -196,7 +208,7 @@ def check_country_input(country):
 def check_user_input(user):
     """
     Validation function for user input. Inside the try, Raises ValueError if the input
-    is more or less than 5 letters and not in the words list.
+    is not in the words list.
     """
     with open("text_files/all_words.txt", "r", encoding="cp1252") as f:
         all_words_list = f.read()
@@ -212,22 +224,14 @@ def check_user_input(user):
     return True
 
 
-def update_leaderboard(name, country):
+def update_leaderboard(data, cell):
     """
-    Updates the leaderboard sheet with the users name and country
-    """
-    update_leaderboard_sheet = SHEET.worksheet("leaderboard")
-    update_leaderboard_sheet.append_row([name, country])
-
-
-def update_leaderboard_score(score):
-    """
-    Updates the leaderboard sheet with the user score
+    Updates the leaderboard Goodle sheet with the name, country and score
     """
     leaderboard_sheet = SHEET.worksheet("leaderboard")
-    column_values = leaderboard_sheet.col_values(3)
+    column_values = leaderboard_sheet.col_values(cell)
     column_numbers = len(column_values) + 1
-    leaderboard_sheet.update_cell(column_numbers, 3, score)
+    leaderboard_sheet.update_cell(column_numbers, cell, data)
 
 
 def main():
@@ -236,7 +240,6 @@ def main():
     """
     display_start_menu()
     get_user_input()
-    ready_to_play_game()
 
 
 main()
