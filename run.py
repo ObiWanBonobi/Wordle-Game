@@ -54,12 +54,14 @@ def show_rules():
     then it will get the user name. When n is pressed, the rules will be
     skipped.
     """
-    read_rules = input("Do you want to read the rules? y/n\n").lower()
+    read_rules = ""
+    while read_rules not in ('y', 'n'):
+        read_rules = input("Do you want to read the rules? y/n\n").lower()
 
-    if read_rules == "y":
-        print()
-        console.rule("[red]:clipboard:  Rules :clipboard:")
-        print("""
+        if read_rules == "y":
+            print()
+            console.rule("[red]:clipboard:  Rules :clipboard:")
+            print("""
 To start the game :
 - First add your name. Make sure your name is only created with alphabetical
   letters.
@@ -69,15 +71,15 @@ To start the game :
   letter but its in the wrong spot, it will show a red circle. If the letter is
   correct and in the correct spot, it will show a green check mark. Guess the
   correct 5 letter word.
-        """)
-        console.rule("[red]:cross_mark: :o: :white_check_mark: ")
-        print()
-        get_user_input()
-    elif read_rules == "n":
-        print()
-        get_user_input()
-    else:
-        print("Invalid option, type either y or n.\n")
+            """)
+            console.rule("[red]:cross_mark: :o: :white_check_mark: ")
+            print()
+            play_wordle()
+        elif read_rules == "n":
+            print()
+            play_wordle()
+        else:
+            print("Invalid option, type either y or n.\n")
 
 
 def play_wordle():
@@ -153,16 +155,18 @@ def play_game_again():
     Asks the user if they want to play Wordle again. Then exits the game if n
     is pressed, and starts the game again when y is pressed.
     """
-    play_game_input = input("Do you want to play again? y/n\n").lower()
+    play_game_input = ""
+    while play_game_input not in ('y', 'n'):
+        play_game_input = input("Do you want to play again? y/n\n").lower()
 
-    if play_game_input == "y":
-        print("\nLet's play Wordle!\n")
-        play_wordle()
-    elif play_game_input == "n":
-        print("Exiting game...\n")
-        sys.exit()
-    else:
-        print("Invalid option, type either y or n.\n")
+        if play_game_input == "y":
+            print("\nLet's play Wordle!\n")
+            play_wordle()
+        elif play_game_input == "n":
+            print("Exiting game...\n")
+            sys.exit()
+        else:
+            print("Invalid option, type either y or n.\n")
 
 
 def check_letters_word(user, computer):
@@ -257,16 +261,19 @@ def show_leaderboard():
     again.
     """
     print()
-    leaderboard = input("Do you want to see the leaderboard? y/n\n").lower()
-    print()
+    leaderboard = ""
+    while leaderboard not in ('y', 'n'):
+        leaderboard = input(
+            "Do you want to see the leaderboard? y/n\n").lower()
+        print()
 
-    if leaderboard == "y":
-        print("\nLet's see if you made the leaderboard...\n")
-        get_leaderboard()
-    elif leaderboard == "n":
-        play_game_again()
-    else:
-        print("Invalid option, type either y or n.\n")
+        if leaderboard == "y":
+            print("\nLet's see if you made the leaderboard...\n")
+            get_leaderboard()
+        elif leaderboard == "n":
+            play_game_again()
+        else:
+            print("Invalid option, type either y or n.\n")
 
 
 def get_leaderboard():
