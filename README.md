@@ -1,6 +1,6 @@
 # Wordle
 
-![](assets/images/)
+![Wordle gif](assets/gif/gif_wordle.gif)
 
 [Click on this link to visit the Github page](https://obiwanbonobi.github.io/PP3/)
 
@@ -47,7 +47,132 @@ In envisioning the Wordle game, my goal was to cultivate an engaging and intelle
 
 # Features
 
-![](assets/images/)
+<details>
+<summary>When the game starts, the user will be welcommed with the Wordle banner :</summary>
+
+<br>
+
+![Display Wordle](assets/images/display_wordle.png)
+
+</details>
+<br>
+<details>
+<summary>The user can then decide if they want to read the rules or not :</summary>
+
+<br>
+
+![Wordle rules](assets/images/question_rules.png)
+
+When y is pressed the rules will show.
+
+![Wordle rules](assets/images/display_rules.png)
+
+</details>
+<br>
+<details>
+<summary>After the rules have been read or skipped, you can type in your name and country you're from :</summary>
+
+<br>
+
+![Name input](assets/images/question_name.png)
+
+It will then validate the name input.
+
+![Validating name input](assets/images/validating_name.png)
+
+Then the country can be typed in.
+
+![Country input](assets/images/question_country.png)
+
+It will then validate the name input.
+
+![Validating country input](assets/images/validating_country.png)
+
+It will then show a small welcome message with whatever name and country (in English) you chose.
+
+![Welcome message](assets/images/hello_message.png)
+
+</details>
+<br>
+<details>
+<summary>The game then starts where you can start guessing the 5 letter word :</summary>
+
+<br>
+
+![Start of the game](assets/images/start_game.png)
+
+The word you guess has corresponding emojis underneath. Where if a letter is not in the word chosen by the computer, it will show a red cross underneath that letter. If a letter is in the word but in the incorrect spot, it will show a red circle. And finally if a letter is in the word and also in the correct spot, it will show a green check mark underneath.
+
+![Word used with corresponding emojis](assets/images/guess_emoji.png)
+
+</details>
+<br>
+<details>
+<summary>Guessing the correct word, will show a small message congratulating the user :</summary>
+
+<br>
+
+![Correct word is guessed](assets/images/word_correct.png)
+
+</details>
+<br>
+<details>
+<summary>When the incorrect word is guessed, it will show a small "You lost" message with the correct word :</summary>
+
+<br>
+
+![You lost message](assets/images/you_lost.png)
+
+</details>
+<br>
+<details>
+<summary>The user is then asked if they want to see the leaderboard :</summary>
+
+<br>
+
+![Question for seeing the leaderboard](assets/images/question_leaderboard.png)
+
+When y is pressed the leaderboard will show.
+
+![Leaderboard](assets/images/leaderboard.png)
+
+</details>
+<br>
+<details>
+<summary>After the leaderboard is shown, the user is asked if they want to play again :</summary>
+
+<br>
+
+![Question to play again](assets/images/question_play_again.png)
+
+When y is pressed the game will start again, starting with the user input. When n is pressed the game will exit.
+
+![Exiting game](assets/images/question_exit.png)
+
+</details>
+<br>
+<details>
+<summary>Error messages :</summary>
+
+<br>
+
+When anything other than alphabetical letters and or spaces are used, this error message will be shown.
+
+![Error message for name input](assets/images/error_name.png)
+
+When anything other than country names are used, this error message will pop up.
+
+![Error message for country input](assets/images/error_country.png)
+
+When anything other than a 5 letter real word is used, this message pops up.
+
+![Error message for word input](assets/images/error_word.png)
+
+When the user presseer anything other than y or n in these y/n questions, this message will be shown.
+
+![Error message for y or n input](assets/images/error_y_n.png)
+
+</details>
 
 <br>
 
@@ -57,12 +182,19 @@ In envisioning the Wordle game, my goal was to cultivate an engaging and intelle
 - I want to change the emoji's to having the background of the letter in a different colour for better readability and flow.
 - I want the add the alphabet. Were the letters background changes to either red or yellow, when the wrong letter or the letter was in the wrong spot gets guesssed.
 - I want to add a feature where after finishing the game and seeing the leaderboard, you see the users score highlighted in the leaderboard. And if the the user scores outside the spectrum of the leaderboard, it will still show seperatly underneath.
+- I would like to add a feature that tells the user if a word has already been used.
 
 <br>
 
 # Design
 
-![](assets/images/)
+I wanted the colours to have an oldschool vibe to it, so it fits the vibe of a terminal game. I added some cute emojis that would fit with the style. And added a green line through all the "seperate" sections in the game
+
+![colour pallate](assets/images/colour_design.png)
+
+![Display Wordle](assets/images/display_wordle.png)
+
+![Wordle rules](assets/images/display_rules.png)
 
 <br>
 
@@ -75,7 +207,9 @@ In envisioning the Wordle game, my goal was to cultivate an engaging and intelle
 - [Visual Studio Code](https://code.visualstudio.com/) is where I did all my coding.
 - [HelpseoTools](https://helpseotools.com/text-tools/add-comma-online) helped me add a comma after every word in the countries file, for CSV to read the file properly.
 - [TextFixer](https://www.textfixer.com/tools/remove-line-breaks.php) helped me get rid of the line breaks in my countries list, for CSV to read the file properly.
-- [Favicon](https://favicon.io/) was used to create my own favicon for the game.
+- [Favicon](https://favicon.io/) was used to create a unique favicon for the game.
+- [Coolers](https://coolors.co/) was used to create a colour pallate.
+- [Gif](https://ezgif.com/) was used to create a gif for my README.
 
 
 ## Lucid Flowchart

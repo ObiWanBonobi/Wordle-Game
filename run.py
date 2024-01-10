@@ -111,7 +111,6 @@ def get_user_input():
 
     print()
     play_wordle()
-    return name_input, country_input
 
 
 def play_wordle():
@@ -219,13 +218,11 @@ def check_country_input(country):
     Validation function for country input. Inside the try, Raises ValueError if
     the country input is not in the countries list.
     """
-    country_input_strip = country.strip()
-
     with open("text_files/countries.csv", "r", encoding="cp1252") as f:
         country_file = f.read()
 
         try:
-            if country_input_strip not in country_file:
+            if country not in country_file:
                 raise ValueError(
                     "Country name wont work with symbols or special characters"
                     )
