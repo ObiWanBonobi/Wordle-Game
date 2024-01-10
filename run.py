@@ -27,7 +27,7 @@ SHEET = GSPREAD_CLIENT.open("wordle_bo")
 
 def display_wordle():
     """
-    Displays the start page with a fun titel and starts the rules function.
+    Displays the start page with a fun titel.
     """
     print()
     console.rule("[red]:books:  A Python Terminal Game :books:")
@@ -45,13 +45,11 @@ def display_wordle():
     console.rule("[red]:books:  By Bo de Groot :books:")
     print()
 
-    show_rules()
-
 
 def show_rules():
     """
-    Shows the rules when asked for. When y is pressed it wil show the rules,
-    then it will get the user name. When n is pressed, the rules will be
+    Shows the rules when asked for. When 'y' is pressed it wil show the rules,
+    then it will get the user name. When 'n' is pressed, the rules will be
     skipped.
     """
     read_rules = ""
@@ -74,23 +72,16 @@ To start the game :
             """)
             console.rule("[red]:cross_mark: :o: :white_check_mark: ")
             print()
-            play_wordle()
         elif read_rules == "n":
             print()
-            play_wordle()
         else:
             print("Invalid option, type either y or n.\n")
 
 
-def play_wordle():
+def get_user_input():
     """
-    Input for the users name and country. Then shows hello message. Then
-    starts the wordle game. The computer chooses a random word from the
-    imported words list. The user can start guessing 5 letter words, that get
-    checked if the input is a real 5 letter word. The score goes up one point
-    if it's a real word. And prints the word with corresponding emojis
-    underneath the input word. When the user guesses the word correctly or
-    after 6 tries the user will be asked if they want to see the leaderboard.
+    Input for the users name and country. Starts the game after a 'hello'
+    message.
     """
     console.rule("[red]User Data :")
     print()
@@ -103,16 +94,29 @@ def play_wordle():
             break
 
     while True:
-        country_input = input("Enter your country in English : \n").title()
+        country_input = str(input(
+            "Enter your country in English : \n")).title()
         print("\nChecking if country is valid...\n")
 
         if check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!")
             break
 
+    print()
+    play_wordle(name_input, country_input)
+
+
+def play_wordle(name, country):
+    """
+    Starts the wordle game. The computer chooses a random word from the
+    imported words list. The user can start guessing 5 letter words. The score
+    goes up one point if it's a real word. And prints the word with
+    corresponding emojis underneath the input word. When the user guesses the
+    word correctly or after 6 tries the user will see a "congrats" or "you
+    lose" message.
+    """
     with open("text_files/words.txt", "r", encoding="cp1252") as f:
-        all_words = f.read()
-        words = list(map(str, all_words.upper().split()))
+        words = [word.upper() for word in f.read().split()]
 
     computer_choice = random.choice(words)
     score = 0
@@ -137,8 +141,7 @@ def play_wordle():
             rprint(
                 "[on green]    Congrats, you guessed the correct word!    "
                 )
-            update_leaderboard(name_input, country_input, score)
-            show_leaderboard()
+            update_leaderboard(name, country, score)
             break
 
     else:
@@ -146,14 +149,13 @@ def play_wordle():
         rprint(
             f"[on red]    You lost. The correct word was {computer_choice}    "
         )
-        update_leaderboard(name_input, country_input, score)
-        show_leaderboard()
+        update_leaderboard(name, country, score)
 
 
 def play_game_again():
     """
-    Asks the user if they want to play Wordle again. Then exits the game if n
-    is pressed, and starts the game again when y is pressed.
+    Asks the user if they want to play Wordle again. Then exits the game if 'n'
+    is pressed, and starts the game again when 'y' is pressed.
     """
     play_game_input = ""
     while play_game_input not in ('y', 'n'):
@@ -161,7 +163,7 @@ def play_game_again():
 
         if play_game_input == "y":
             print("\nLet's play Wordle!\n")
-            play_wordle()
+            get_user_input()
         elif play_game_input == "n":
             print("Exiting game...\n")
             sys.exit()
@@ -211,10 +213,10 @@ def check_country_input(country):
     the country input is not in the countries list.
     """
     with open("text_files/countries.csv", "r", encoding="cp1252") as f:
-        country_file = f.read()
+        country_list = f.read().split(',')
 
         try:
-            if country not in country_file:
+            if country not in country_list:
                 raise ValueError(
                     "Country name wont work with symbols or special characters"
                     )
@@ -231,11 +233,10 @@ def check_user_input(user):
     the input is not in the words list.
     """
     with open("text_files/all_words.txt", "r", encoding="cp1252") as f:
-        all_words_list = f.read()
-        all_words = list(map(str, all_words_list.upper().split()))
+        words = [word.upper() for word in f.read().split()]
 
         try:
-            if user not in all_words:
+            if user not in words:
                 raise ValueError(
                     "Input needs to be a real 5 alphabetical letter word")
         except ValueError as e:
@@ -255,10 +256,8 @@ def update_leaderboard(name, country, score):
 
 def show_leaderboard():
     """
-    Asks the user if they want to see the leaderboard. It asks the user if
-    they want to play the game again if n is pressed, and if y is pressed
-    will show the leaderboard asks the user if they want to play the game
-    again.
+    Asks the user if they want to see the leaderboard. When 'n' is pressed
+    the user gets the "play again" question.
     """
     print()
     leaderboard = ""
@@ -278,8 +277,7 @@ def show_leaderboard():
 
 def get_leaderboard():
     """
-    Shows the top 10 users with the lowest guesses from the leaderboard sheet
-    after y is pressed by the user in the update_and_show_leaderboard function.
+    Shows the top 10 users with the lowest guesses from the leaderboard sheet.
     """
     leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
 
@@ -306,9 +304,12 @@ def get_leaderboard():
 
 def main():
     """
-    Starts the wordle game with the display first.
+    Starts the wordle game functions.
     """
     display_wordle()
+    show_rules()
+    get_user_input()
+    show_leaderboard()
 
 
 main()

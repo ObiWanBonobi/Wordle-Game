@@ -294,10 +294,9 @@ I did extensive testing to make sure my code has no bugs. Everything in my code 
     * ERROR: No matching distribution found for pywin32==306<br>
 I googled it online and [this forum](https://stackoverflow.com/questions/50026190/heroku-fails-to-install-pywin32-library) told me to just delete "pywin32==306" from my requirements file.
 - My Favicon wasn't working because I forgot to set up the correct path to the file.
-- When the user enters their name and country it would update that data in the spreadsheet, however if the user then closes the game or theres an error, the spreadsheet would be out of sync. Because the score was only updating after finishing the game. I had to move the user data and game play in the same function and update the sheet only after the game is done.
+- When the user entered their name and country it would update that data in the spreadsheet, however if the user then closes the game or there's an error, the spreadsheet would be out of sync. Because the score was only updating after finishing the game. I added parameters to the get_user_input function and added them to the play_wordle function.
 - My y and n questions were closing the program after typing in the wrong input. I had forgotten to make these questions a while loop.
-
-- Country list
+- When the user would type in the country input, every letter combo that is in the countries file would work for country validation. I had forgotten to make the country input a string, to fix this issue.
 
 <b>I have not noticed any existing bugs.</b>
 
