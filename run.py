@@ -80,14 +80,15 @@ To start the game :
         print("Invalid option, type either y or n.\n")
 
 
-def get_user_input():
+def play_wordle():
     """
-    Input for the users name and country. The name input will come up with an
-    error if anything other than alphabetical letters and spaces are used. The
-    country input will come back with an error if the input doesn't match any
-    of the countries in the countries file, also can't have any special
-    characters and or symbols. Then updates the Google leaderboard sheet with
-    the name and country.
+    Input for the users name and country. Then shows hello message. Then
+    starts the wordle game. The computer chooses a random word from the
+    imported words list. The user can start guessing 5 letter words, that get
+    checked if the input is a real 5 letter word. The score goes up one point
+    if it's a real word. And prints the word with corresponding emojis
+    underneath the input word. When the user guesses the word correctly or
+    after 6 tries the user will be asked if they want to see the leaderboard.
     """
     console.rule("[red]User Data :")
     print()
@@ -105,23 +106,8 @@ def get_user_input():
 
         if check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!")
-            update_leaderboard(name_input, 1)
-            update_leaderboard(country_input, 2)
             break
 
-    print()
-    play_wordle()
-
-
-def play_wordle():
-    """
-    Starts the wordle game. The computer chooses a random word from the
-    imported words list. The user can start guessing 5 letter words, that get
-    checked if the input is a real 5 letter word. The score goes up one point
-    if it's a real word. And prints the word with corresponding emojis
-    underneath the input word. When the user guesses the word correctly or
-    after 6 tries the user will be asked if they want to see the leaderboard.
-    """
     with open("text_files/words.txt", "r", encoding="cp1252") as f:
         all_words = f.read()
         words = list(map(str, all_words.upper().split()))
@@ -149,7 +135,8 @@ def play_wordle():
             rprint(
                 "[on green]    Congrats, you guessed the correct word!    "
                 )
-            update_and_show_leaderboard(score)
+            update_leaderboard(name_input, country_input, score)
+            show_leaderboard()
             break
 
     else:
@@ -157,7 +144,8 @@ def play_wordle():
         rprint(
             f"[on red]    You lost. The correct word was {computer_choice}    "
         )
-        update_and_show_leaderboard(score)
+        update_leaderboard(name_input, country_input, score)
+        show_leaderboard()
 
 
 def play_game_again():
@@ -169,7 +157,7 @@ def play_game_again():
 
     if play_game_input == "y":
         print("\nLet's play Wordle!\n")
-        get_user_input()
+        play_wordle()
     elif play_game_input == "n":
         print("Exiting game...\n")
         sys.exit()
@@ -253,25 +241,21 @@ def check_user_input(user):
     return True
 
 
-def update_leaderboard(data, cell):
+def update_leaderboard(name, country, score):
     """
-    Updates the leaderboard Google sheet with the name, country and score
+    Updates the leaderboard Google sheet with the name, country and score.
     """
     leaderboard_sheet = SHEET.worksheet("leaderboard")
-    column_values = leaderboard_sheet.col_values(cell)
-    column_numbers = len(column_values) + 1
-    leaderboard_sheet.update_cell(column_numbers, cell, data)
+    leaderboard_sheet.append_row(values=[name, country, score])
 
 
-def update_and_show_leaderboard(data):
+def show_leaderboard():
     """
-    First updates the score inside the leaderboard sheet. Then asks the user if
-    they want to see the leaderboard. It asks the user if they want to play the
-    game again if n is pressed, and if y is pressed will show the leaderboard
-    asks the user if they want to play the game again.
+    Asks the user if they want to see the leaderboard. It asks the user if
+    they want to play the game again if n is pressed, and if y is pressed
+    will show the leaderboard asks the user if they want to play the game
+    again.
     """
-    update_leaderboard(data, 3)
-
     print()
     leaderboard = input("Do you want to see the leaderboard? y/n\n").lower()
     print()

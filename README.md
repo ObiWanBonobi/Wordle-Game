@@ -8,6 +8,7 @@
 
 <br>
 
+
 # Content
 
 - [Introduction](#introduction)
@@ -31,6 +32,7 @@
 
 <br>
 
+
 # Introduction
 
  I'm thrilled to present my very own Python-based Wordle game that promises to challenge and entertain you in equal measure. Dive into the realm of word-guessing, where you'll be tasked with unraveling a hidden five-letter word through strategic deduction and clever guessing. The users final "score" will be shown in the leaderboard option, if the user scores high enough.
@@ -44,6 +46,7 @@ Wordle is a simple yet engaging word puzzle game that has gained popularity for 
 In envisioning the Wordle game, my goal was to cultivate an engaging and intellectually stimulating experience for players. I designed the game to strike a perfect balance between challenge and enjoyment. The core concept centers around guessing a hidden five-letter word within a limited number of attempts, fostering a sense of accomplishment when the correct word is uncovered. To enhance the game's appeal, I incorporated a diverse and dynamic word bank, keeping players on their toes with an ever-evolving linguistic challenge.
 
 <br>
+
 
 # Features
 
@@ -176,15 +179,17 @@ When the user presseer anything other than y or n in these y/n questions, this m
 
 <br>
 
+
 # Future features
 
-- I want to change the code around so that the "guesses" get updated if you decide to play again. And it will copy the last name and country used. So the user would only have to fill out the name and country once.
+- I want to change the code around so that if you decide to play again. It will copy the last name and country used. So the user would only have to fill out the name and country once. Currently if I don't have it the way it is now, the game would only add the score which would make the spreadsheet out of sync.
 - I want to change the emoji's to having the background of the letter in a different colour for better readability and flow.
 - I want the add the alphabet. Were the letters background changes to either red or yellow, when the wrong letter or the letter was in the wrong spot gets guesssed.
 - I want to add a feature where after finishing the game and seeing the leaderboard, you see the users score highlighted in the leaderboard. And if the the user scores outside the spectrum of the leaderboard, it will still show seperatly underneath.
 - I would like to add a feature that tells the user if a word has already been used.
 
 <br>
+
 
 # Design
 
@@ -197,6 +202,7 @@ I wanted the colours to have an oldschool vibe to it, so it fits the vibe of a t
 ![Wordle rules](assets/images/display_rules.png)
 
 <br>
+
 
 # Technologies used
 
@@ -243,6 +249,7 @@ I got my libraries from different websites from the Code Institure project calle
 
 <br>
 
+
 # Testing
 
 I did extensive testing to make sure my code has no bugs. Everything in my code works as it should.
@@ -274,22 +281,28 @@ I did extensive testing to make sure my code has no bugs. Everything in my code 
 
 <br>
 
+
 # Bug fixes
 
 - When I ran the game after adding a validation for the word input, it kept going to the error that I wasn't using a real word. I started trouble shooting and found that I was comparing the user input with my english list. However my english list was in lowercase and my input I wanted the word to be in uppercase. So I changes the words file so that it returned in uppercase.
 - I noticed that using country names that contained a space weren't working. I ended up changing the file to a csv file so that fixed it.
 - I noticed that some of the words in the words file were names and also words that noone will know. So I went through the list to delete them.
 - The leaderboard wasn't updating properly. I had the code written that you enter you name and country once and then the guesses will update after you finish playing the game. However when you wanted to play again only the leaderboard guesses would update and the rows would become out of sync. I fixed it by changing the code around that you fill in your name and country every time.
-- There was an issue with the score adding a point even if the wrong word was used. I had placed the score += 1 code in the wrong spot.
+- There was an issue with the score adding a point even if the wrong word was used. I had placed the score "+= 1" code in the wrong spot.
 - When I deployed my repo for the first time it came up with this error :
     * ERROR: Could not find a version that satisfies the requirement pywin32==306 (from versions: none)
     * ERROR: No matching distribution found for pywin32==306<br>
 I googled it online and [this forum](https://stackoverflow.com/questions/50026190/heroku-fails-to-install-pywin32-library) told me to just delete "pywin32==306" from my requirements file.
 - My Favicon wasn't working because I forgot to set up the correct path to the file.
+- When the user enters their name and country it would update that data in the spreadsheet, however if the user then closes the game or theres an error, the spreadsheet would be out of sync. Because the score was only updating after finishing the game. I had to move the user data and game play in the same function and update the sheet only after the game is done.
+- My y and n questions were closing the program after typing in the wrong input. I had forgotten to make these questions a while loop.
+
+- Country list
 
 <b>I have not noticed any existing bugs.</b>
 
 <br>
+
 
 # Deployment
 
@@ -333,6 +346,7 @@ You can see deployed game [here](https://wordle-bo-abd372c9b403.herokuapp.com/).
 
 <br>
 
+
 # Credits
 
 - <b>FlowChart</b> : I got some ideas for my flowchart from [Pedro Cristo's PP3](https://github.com/PedroCristo/portfolio_project_3).
@@ -347,5 +361,7 @@ You can see deployed game [here](https://wordle-bo-abd372c9b403.herokuapp.com/).
   * [GeeksforGeeks.org](https://www.geeksforgeeks.org/pulling-a-random-word-or-string-from-a-line-in-a-text-file-in-python/) helped me with understanding how to get a random word from a text file.
   * I got my get_leaderboard function from [Pedro Cristo's](https://github.com/PedroCristo/portfolio_project_3/blob/main/run.py) project the hangmans game. I would've figured the code out myself, however I was running out of time and needed to finish the project on time.
   * I learned a lot from the Code Institutes project [Love Sandwiches](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode).
+  * I learned more about how to append a rom from this [stackoverflow](https://stackoverflow.com/questions/68859429/how-to-append-data-in-a-googlesheet-using-python) forum.
+  * [Quora](https://www.quora.com/I%E2%80%99m-new-to-Python-how-can-I-write-a-yes-no-question) forum helped me with my y or n question, that wasn't working.
 
 - <b>Most of my credit goes to the Code Institute program where I made notes on every section and got most of my ideas and code from there.</b>
