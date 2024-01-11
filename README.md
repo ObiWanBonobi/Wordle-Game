@@ -257,6 +257,8 @@ I wanted the colours to have an oldschool vibe to it, so it fits the vibe of a t
 
 ## Libraries
 
+I know I could use a library for my country list and word list however I wanted to show that I know how to also import from my own folders and also import data from a csv file and a txt file. So I import a few different ways
+
 I got my libraries from different websites from the Code Institure project called Love Sandwiches :
 - [<b>gspread</b>](https://docs.gspread.org/en/v5.10.0/) : The Code Institute helped me learn about that gspread is needed for connecting my Google Sheets to my python code.
 - [<b>sys</b>](https://codedamn.com/news/python/exit-python-program-from-terminal) : I used the sys.exit() for when the user wants to exit the game.
@@ -479,12 +481,13 @@ You can see deployed game [here](https://wordle-bo-abd372c9b403.herokuapp.com/).
 - <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
 - <b>README</b> : I copied some of the Readme code from my previous projects [PP1](https://github.com/ObiWanBonobi/PP1/blob/main/README.md) and [PP2](https://github.com/ObiWanBonobi/PP2/tree/main). I also got some ideas from [Gary Dolan's readme](https://github.com/GaryDolan/ci-p3-pokemon-portfolio). I got my table code from the [Codecademy](https://www.codecademy.com/resources/docs/markdown/tables) website. I got my emojis from this [Github page](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).
 - <b>Python code</b> : I got a better understanding about Python code from these forums, websites and people :
+  * I learned more about python coding from this [Real Python wordle project](https://realpython.com/python-wordle-clone/) website.
   * I learned more about enumerate from the [Geeks for Geeks](https://www.geeksforgeeks.org/enumerate-in-python/) website.
   * I got help with a better understanding of Python from my brother in law [Steffen Bjerkenås](https://github.com/stebje). He told me I needed to change my words list and country list to a text and CSV files and move them into a seperate file for better readability.
   * [GeeksforGeeks.org](https://www.geeksforgeeks.org/pulling-a-random-word-or-string-from-a-line-in-a-text-file-in-python/) helped me with understanding how to get a random word from a text file.
   * I got my get_leaderboard function from [Pedro Cristo's](https://github.com/PedroCristo/portfolio_project_3/blob/main/run.py) project the hangmans game. I would've figured the code out myself, however I was running out of time and needed to finish the project on time.
   * I learned a lot from the Code Institutes project [Love Sandwiches](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode).
-  * I learned more about how to append a rom from this [stackoverflow](https://stackoverflow.com/questions/68859429/how-to-append-data-in-a-googlesheet-using-python) forum.
+  * I learned more about how to append a row from this [stackoverflow](https://stackoverflow.com/questions/68859429/how-to-append-data-in-a-googlesheet-using-python) forum.
   * [Quora](https://www.quora.com/I%E2%80%99m-new-to-Python-how-can-I-write-a-yes-no-question) forum helped me with my y or n question, that wasn't working.
   * [Delete last line](https://linustechtips.com/topic/1257798-delete-last-line-in-console-python-3/) function was found on the linustechtips website.
 

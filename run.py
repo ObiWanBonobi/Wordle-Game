@@ -4,8 +4,6 @@
 import random
 # Sys is used to close the game correctly
 import sys
-# last error message gets deleted
-from time import sleep
 # Gspread is a Python API for Google Sheets
 import gspread
 # This module implements the JWT Profile for OAuth 2.0 Authorization Grants
@@ -16,13 +14,15 @@ from rich import print as rprint
 from rich.panel import Panel
 # Rich console is used to set the width of the console
 from rich.console import Console
+# This connects the validation.py file with this run.py file
+import utils.validation as vd
 
 
 # Sets the with of the display for the console.rule
 console = Console(width=79)
 
 
-# API setup
+# Tells the program what files can be accessed
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -99,18 +99,20 @@ def get_user_input():
     print()
 
     while True:
+        # Changes user input to a Capital name
         name_input = input("Enter your name : \n").title()
         print("\nChecking if name is valid...\n")
 
-        if check_name_input(name_input):
+        if vd.check_name_input(name_input):
             break
 
     while True:
+        # Changes user input to a Capital country
         country_input = str(input(
             "Enter your country in English : \n")).title()
         print("\nChecking if country is valid...\n")
 
-        if check_country_input(country_input):
+        if vd.check_country_input(country_input):
             print(f"Hello {name_input} from {country_input}!")
             break
 
@@ -127,7 +129,7 @@ def play_wordle(name, country):
     word correctly or after 6 tries the user will see a "congrats" or "you
     lose" message.
     """
-    computer_choice = random.choice(read_file("words", "txt"))
+    computer_choice = random.choice(vd.read_file("words", "txt"))
     score = 0
 
     console.rule("[red]You have 6 guesses to find the 5 letter word :")
@@ -137,13 +139,15 @@ def play_wordle(name, country):
         while True:
             user_guess = input(f"Guess {guesses_left} : \n").upper()
             ug = user_guess
-            # I did not use a feedback message here for a cleaner look
+            # I did not use a feedback here for a cleaner look
             print()
 
-            if check_user_input(user_guess):
+            if vd.check_user_input(user_guess):
+                # Adds one point after every guess
                 score += 1
                 break
 
+        # Reprints the user word with spaces and corresponding emojis under
         print(f"  {ug[0]}  {ug[1]}  {ug[2]}  {ug[3]}  {ug[4]}")
         rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
 
@@ -153,6 +157,7 @@ def play_wordle(name, country):
             break
 
     else:
+        # Adds one final point and prints you lost message
         score += 1
         rprint(
             f"[on red]    You lost. The correct word was {computer_choice}    "
@@ -189,75 +194,23 @@ def check_letters_word(user, computer):
     emoji = ""
 
     for index, letter in enumerate(user):
+        # Places a green check emoji under correct letter
         if letter == computer[index]:
             emoji += " :heavy_check_mark: "
+        # Places a red circle under letter in incorrect spot
         elif letter in computer:
             emoji += " :o: "
+        # Places a red  cross under incorrect letters
         else:
             emoji += " :cross_mark: "
 
     return emoji
 
 
-def check_name_input(name):
-    """
-    Validation function for name input. Inside the try, Raises ValueError if
-    the name input is something other than alphabetical letters or spaces.
-    """
-    try:
-        if not all(x.isalpha() or x.isspace() for x in name):
-            raise ValueError(
-                "Name can only be alphabetical letters and spaces")
-    except ValueError as e:
-        print(f"Invalid name : \n{e}\nPlease try again.\n")
-        return False
-
-    return True
-
-
-def check_country_input(country):
-    """
-    Validation function for country input. Inside the try, Raises ValueError if
-    the country input is not in the countries list.
-    """
-    with open("text_files/countries.csv", "r", encoding="cp1252") as f:
-        country_list = f.read().split(',')
-
-        try:
-            if country not in country_list:
-                raise ValueError(
-                    "Country name wont work with symbols or special characters"
-                    )
-        except ValueError as e:
-            print(f"Invalid country : \n{e}\nPlease try again.\n")
-            return False
-
-    return True
-
-
-def check_user_input(user):
-    """
-    Validation function for user input. Inside the try, Raises ValueError if
-    the input is not in the words list.
-    """
-    with open("text_files/all_words.txt", "r", encoding="cp1252") as f:
-        words = [word.upper() for word in f.read().split()]
-
-        try:
-            if user not in words:
-                raise ValueError(
-                    "Input needs to be a real 5 letter word,")
-        except ValueError as e:
-            print(f"Invalid word : {e} try again.")
-            delete_error_message()
-            return False
-
-    return True
-
-
 def update_leaderboard(name, country, score):
     """
     Updates the leaderboard Google sheet with the name, country and score.
+    Adds one row every time.
     """
     leaderboard_sheet = SHEET.worksheet("leaderboard")
     leaderboard_sheet.append_row(values=[name, country, score])
@@ -291,11 +244,13 @@ def get_leaderboard():
     Shows the top 10 users with the lowest guesses from the leaderboard sheet.
     This function was partly copied from Pedro Cristo. Look in readme.
     """
+    # Gets all the values under the "header" in the google sheet
     leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
 
     for data in leaderboard:
         data[1] = data[1]
 
+    # Gets the top 10 lowest numbers from google sheet
     top_score = sorted(leaderboard, key=lambda x: int(x[2]), reverse=False)
 
     if len(top_score) < 10:
@@ -306,38 +261,13 @@ def get_leaderboard():
     console.rule("[red]Top 10 lowest guesses :")
     print()
 
+    # Prints the top 10 lowest scores from the google sheet
     for i in range(0, count):
         rprint(Panel(f"""{i+1}\t{top_score[i][0]} \tfrom\t{top_score[i][1]}
         Guesses :\t{top_score[i][2]}"""))
 
     print()
     play_game_again()
-
-
-def read_file(name, types):
-    """
-    Gets data from csv and txt file. Comes back with error message when file is
-    not found.
-    """
-    if types == "csv":
-        with open(f"text_files/{name}.{types}", "r", encoding="cp1252") as f:
-            country_list = f.read().split(",")
-            return country_list
-    elif types == "txt":
-        with open(f"text_files/{name}.{types}", "r", encoding="cp1252") as f:
-            words_list = [word.upper() for word in f.read().split()]
-            return words_list
-    else:
-        print("Error, invalid file")
-
-
-def delete_error_message():
-    """
-    Deletes the last line in the terminal for better visuals
-    """
-    sleep(2.5)
-    sys.stdout.write("\x1b[1A")
-    sys.stdout.write("\x1b[2K")
 
 
 def main():
