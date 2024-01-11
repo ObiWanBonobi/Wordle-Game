@@ -1,13 +1,24 @@
 """Google sheets import and library imports"""
-import random
-import sys
-from time import sleep
-import gspread
 
+# Random is used for the computer to randomly choose a word from the words list
+import random
+# Sys is used to close the game correctly
+import sys
+# last error message gets deleted
+from time import sleep
+# Gspread is a Python API for Google Sheets
+import gspread
+# This module implements the JWT Profile for OAuth 2.0 Authorization Grants
 from google.oauth2.service_account import Credentials
+# Rich is used for the colourful text
 from rich import print as rprint
+# Rich panel is used to place the leaderboard in a frame
 from rich.panel import Panel
+# Rich console is used to set the width of the console
 from rich.console import Console
+
+
+# Sets the with of the display for the console.rule
 console = Console(width=79)
 
 
@@ -54,7 +65,7 @@ def show_rules():
     skipped.
     """
     read_rules = ""
-    while read_rules not in ('y', 'n'):
+    while read_rules not in ("y", "n"):
         read_rules = input("Do you want to read the rules? y/n\n").lower()
 
         if read_rules == "y":
@@ -71,7 +82,7 @@ To start the game :
   correct and in the correct spot, it will show a green check mark. Guess the
   correct 5 letter word.
             """)
-            console.rule("[red]:cross_mark: :o: :white_check_mark: ")
+            console.rule("[red]:cross_mark: :o: :heavy_check_mark: ")
             print()
         elif read_rules == "n":
             print()
@@ -116,10 +127,7 @@ def play_wordle(name, country):
     word correctly or after 6 tries the user will see a "congrats" or "you
     lose" message.
     """
-    with open("text_files/words.txt", "r", encoding="cp1252") as f:
-        words = [word.upper() for word in f.read().split()]
-
-    computer_choice = random.choice(words)
+    computer_choice = random.choice(read_file("words", "txt"))
     score = 0
 
     console.rule("[red]You have 6 guesses to find the 5 letter word :")
@@ -129,6 +137,7 @@ def play_wordle(name, country):
         while True:
             user_guess = input(f"Guess {guesses_left} : \n").upper()
             ug = user_guess
+            # I did not use a feedback message here for a cleaner look
             print()
 
             if check_user_input(user_guess):
@@ -139,11 +148,8 @@ def play_wordle(name, country):
         rprint(f"{check_letters_word(user_guess, computer_choice)}\n")
 
         if user_guess == computer_choice:
-            rprint(
-                "[on green]    Congrats, you guessed the correct word!    "
-                )
+            rprint("[on green]    Congrats, you guessed the correct word!    ")
             update_leaderboard(name, country, score)
-            show_leaderboard()
             break
 
     else:
@@ -152,7 +158,6 @@ def play_wordle(name, country):
             f"[on red]    You lost. The correct word was {computer_choice}    "
         )
         update_leaderboard(name, country, score)
-        show_leaderboard()
 
 
 def play_game_again():
@@ -161,7 +166,7 @@ def play_game_again():
     is pressed, and starts the game again when 'y' is pressed.
     """
     play_game_input = ""
-    while play_game_input not in ('y', 'n'):
+    while play_game_input not in ("y", "n"):
         play_game_input = input("Do you want to play again? y/n\n").lower()
 
         if play_game_input == "y":
@@ -185,7 +190,7 @@ def check_letters_word(user, computer):
 
     for index, letter in enumerate(user):
         if letter == computer[index]:
-            emoji += " :white_check_mark: "
+            emoji += " :heavy_check_mark: "
         elif letter in computer:
             emoji += " :o: "
         else:
@@ -257,6 +262,8 @@ def update_leaderboard(name, country, score):
     leaderboard_sheet = SHEET.worksheet("leaderboard")
     leaderboard_sheet.append_row(values=[name, country, score])
 
+    show_leaderboard()
+
 
 def show_leaderboard():
     """
@@ -265,13 +272,13 @@ def show_leaderboard():
     """
     print()
     leaderboard = ""
-    while leaderboard not in ('y', 'n'):
+    while leaderboard not in ("y", "n"):
         leaderboard = input(
             "Do you want to see the leaderboard? y/n\n").lower()
         print()
 
         if leaderboard == "y":
-            print("\nLet's see if you made the leaderboard...\n")
+            print("\nLet's see if you made it on the leaderboard...\n")
             get_leaderboard()
         elif leaderboard == "n":
             play_game_again()
@@ -282,6 +289,7 @@ def show_leaderboard():
 def get_leaderboard():
     """
     Shows the top 10 users with the lowest guesses from the leaderboard sheet.
+    This function was partly copied from Pedro Cristo. Look in readme.
     """
     leaderboard = SHEET.worksheet("leaderboard").get_all_values()[1:]
 
@@ -304,6 +312,23 @@ def get_leaderboard():
 
     print()
     play_game_again()
+
+
+def read_file(name, types):
+    """
+    Gets data from csv and txt file. Comes back with error message when file is
+    not found.
+    """
+    if types == "csv":
+        with open(f"text_files/{name}.{types}", "r", encoding="cp1252") as f:
+            country_list = f.read().split(",")
+            return country_list
+    elif types == "txt":
+        with open(f"text_files/{name}.{types}", "r", encoding="cp1252") as f:
+            words_list = [word.upper() for word in f.read().split()]
+            return words_list
+    else:
+        print("Error, invalid file")
 
 
 def delete_error_message():

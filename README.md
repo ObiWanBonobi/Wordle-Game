@@ -37,9 +37,11 @@
 
  I'm thrilled to present my very own Python-based Wordle game that promises to challenge and entertain you in equal measure. Dive into the realm of word-guessing, where you'll be tasked with unraveling a hidden five-letter word through strategic deduction and clever guessing. The users final "score" will be shown in the leaderboard option, if the user scores high enough.
 
+
 ## User experience
 
 Wordle is a simple yet engaging word puzzle game that has gained popularity for its straightforward gameplay and addictive nature. That's why I decided to make my own version. The user experience for my Wordle game has been crafted to ensure both enjoyment and ease of play. The game is made for people who want to embark on a captivating journey of word discovery.
+
 
 ## My vision for the game
 
@@ -171,6 +173,10 @@ When anything other than a 5 letter real word is used, this message pops up.
 
 ![Error message for word input](assets/images/error_word.png)
 
+Then after 2 seconds this line gets deleted, so you can see your previous guesses easier.
+
+![Error message for word deleted](assets/images/error_word_deleted.png)
+
 When the user presseer anything other than y or n in these y/n questions, this message will be shown.
 
 ![Error message for y or n input](assets/images/error_y_n.png)
@@ -216,27 +222,38 @@ I wanted the colours to have an oldschool vibe to it, so it fits the vibe of a t
 - [Favicon](https://favicon.io/) was used to create a unique favicon for the game.
 - [Coolers](https://coolors.co/) was used to create a colour pallate.
 - [Gif](https://ezgif.com/) was used to create a gif for my README.
+- [emoji](https://emojipedia.org/) is where I got my emojis from.
 
 
 ## Lucid Flowchart
 
-[LucidChart](https://www.lucidchart.com/pages/) was used to create a flow chart for planning my project.
+<details>
+<summary>LucidChart was used to create a flow chart for planning my Python project.</summary>
 
 <br>
+
+[LucidChart](https://www.lucidchart.com/pages/)
 
 ![Flow Chart](assets/images/flow_chart.png)
+</details>
 
 <br>
+
 
 ## Google Sheets
 
-[Google Sheets](https://www.google.com/sheets/about/) was used to create a leaderboard. After finishing the game, the leaderboard will be updated and the user has a choice to see if they want to see the leaderboard top 10 lowest guesses.
+<details>
+<summary>Google Sheets was used to create a leaderboard. After finishing the game, the leaderboard will be updated and the user has a choice to see if they want to see the leaderboard top 10 lowest guesses.</summary>
 
 <br>
+
+[Google Sheets](https://www.google.com/sheets/about/)
 
 ![Google Sheets](assets/images/google_sheets.png)
+</details>
 
 <br>
+
 
 ## Libraries
 
@@ -246,13 +263,120 @@ I got my libraries from different websites from the Code Institure project calle
 - [<b>Rich</b>](https://rich.readthedocs.io/en/latest/introduction.html#installation) : I used the pannelling for the start page with Rich. Rich is also used to set the console width. And rprint() was used to print colourfull messages.
 - [<b>Random</b>](https://www.geeksforgeeks.org/python-random-module/) : I used the Random import to randomize the word chosen by the computer.
 - [<b>Credentials</b>](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html) : The Code Institute helped me learn about credentials and that I needed them for my Google Sheets, which is used for my leaderboard list.
+- [Time](https://docs.python.org/3/library/time.html) : Was needed for deleting the wordle error message after 2 seconds. 
 
 <br>
 
 
 # Testing
 
-I did extensive testing to make sure my code has no bugs. Everything in my code works as it should.
+I did extensive testing to make sure my code has no bugs. As you can see in the [features](#features) - errors section, every incorrect input has it's own error message. Everything in my code works as it should :
+
+<details>
+<summary>Main Python</summary>
+
+| Test | Result   |
+| ---------- | -------- |
+| Random import | &#10004; |
+| Sys import | &#10004; |
+| Time import | &#10004; |
+| Gspread import | &#10004; |
+| Rich import | &#10004; |
+| Credentials | &#10004; |
+| The Google spreadsheet called "leaderboard" is connected to the run.py file | &#10004; |
+| Validations file | &#10004; |
+| Game runs in Heroku | &#10004; |
+| Game runs in VS Code | &#10004; |
+| Game uploaded to GitHub| &#10004; |
+| All internal files are read and opened correctly | &#10004; |
+| All parameters work correctly | &#10004; |
+| Game starts with the main function | &#10004; |
+| Game runs in a loop until "n" is pressed in the play_again question | &#10004; |
+
+</details>
+<br>
+<details>
+<summary>Terminal designs</summary>
+
+| Test | Result   |
+| ---------- | -------- |
+| The Wordle banner shows up undistorted | &#10004; |
+| All ruler lines that split up the different "sections" of the game are shown | &#10004; |
+| Message inside ruler lines are red and show different text | &#10004; |
+| The rules get printed out without any distortion | &#10004; |
+| All emojis show correctly | &#10004; |
+| The pannels in the leaderboard show up undistorted | &#10004; |
+| "You won" message shows with a green background after game is won | &#10004; |
+| "You lost" message shows with a red background and the correct word after game is lost | &#10004; |
+| The leaderboard shows up undistorted | &#10004; |
+| Leaderboard is shown with name, country and score of the top 10 lowest guesses | &#10004; |
+
+</details>
+<br>
+<details>
+<summary>User Input</summary>
+
+| Test | Result   |
+| ---------- | -------- |
+| The user can type their name in the name input | &#10004; |
+| A "checking if input is correct" message will show | &#10004; |
+| The user can type in the country they're from in the country input | &#10004; |
+| A "checking if input is correct" message will show | &#10004; |
+| A "Hello user from country" message will show | &#10004; |
+| User name and country gets parsed into the play_wordle function | &#10004; |
+| The user can type either "y" or "n" in the y/n questions | &#10004; |
+| The user can type a 5 letter word in the wordle game| &#10004; |
+
+</details>
+<br>
+<details>
+<summary>Questions</summary>
+
+| Test | Result   |
+| ---------- | -------- |
+| The question is asked if the user wants to see the rules | &#10004; |
+| If "y" is pressed it will show the rules | &#10004; |
+| When "n" is pressed, the rules will be skipped and show the user name input | &#10004; |
+| The question is asked if the user wants to see the leaderboard | &#10004; |
+| If "y" is pressed it will show the leaderboard | &#10004; |
+| When "n" is pressed, it will show the "play again" question | &#10004; |
+| The question is asked if the user wants to play the game again | &#10004; |
+| If "y" is pressed it will show the user name input again | &#10004; |
+| When "n" is pressed, the game will exit | &#10004; |
+
+</details>
+<br>
+<details>
+<summary>Wordle game</summary>
+
+| Test | Result   |
+| ---------- | -------- |
+| Computer chooses random word from words list | &#10004; |
+| The word the user chose gets shown again but spaced out in a new line | &#10004; |
+| Underneath that shows the corresponding emojis, so they line up with the input word | &#10004; |
+| User can see on which number of guesses they are | &#10004; |
+| Score gets 1 extra point after every guess | &#10004; |
+| If the correct word gets guessed by the user, it will finish the game | &#10004; |
+| If the user can't guess the correct word in the 6 tries, the game will finish| &#10004; |
+| After game is won or lost, the leaderboard will be updated with name, country and score of user| &#10004; |
+
+</details>
+<br>
+<details>
+<summary>Errors</summary>
+
+| Test | Result   |
+| ---------- | -------- |
+| In the y/n questions, if anything other than y, Y, n or N is typed, an error message will be shown | &#10004; |
+| when name input is anything other than spaces and alphabetical letters, an error pops up | &#10004; |
+| When name input is less than 2 letters, a differenterror pops up | &#10004; |
+| When country input is not in the countries list, it will show an error | &#10004; |
+| When word input is not in the all_words list, it will show an error | &#10004; |
+| The error message will then be deleted for better visuals | &#10004; |
+| When an incorrect file in the read_file funtion is chosen, it will throw an error | &#10004; |
+
+</details>
+
 
 ## HTML validation
 
@@ -265,10 +389,11 @@ I did extensive testing to make sure my code has no bugs. Everything in my code 
 
 </details>
 
+
 ## Python validation
 
 <details>
-<summary>The first time I put my code through [The Code institutes Python linter](https://pep8ci.herokuapp.com/), the code came up with some minor isseus. After fixing these minor issues the code came back without issues.</summary>
+<summary>The first time I put my run.py file through [The Code institutes Python linter](https://pep8ci.herokuapp.com/), the code came up with some minor isseus. I had indented incorrectly in the original panel display for the wordle banner. I first fixed this issue then later deleted this panel for a cleaner look. After fixing these minor issues the code came back without issues. My validation file came back with no issues.</summary>
 
 <br>
 
@@ -349,11 +474,10 @@ You can see deployed game [here](https://wordle-bo-abd372c9b403.herokuapp.com/).
 # Credits
 
 - <b>FlowChart</b> : I got some ideas for my flowchart from [Pedro Cristo's PP3](https://github.com/PedroCristo/portfolio_project_3).
-- <b>Emoji</b> : I got my emojis from [Emojipedia](https://emojipedia.org/).
 - <b>English words</b> : I got the english 5 letter words from [The free dictionary](https://www.thefreedictionary.com/5-letter-words.htm).
 - <b>All words</b> : I got my list of all english words from [Charles Reid's Github](https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt)
 - <b>Countries list</b> : I got the list of all countries from [World o meters](https://www.worldometers.info/geography/alphabetical-list-of-countries/).
-- <b>README</b> : I copied some of the Readme code from my previous projects [PP1](https://github.com/ObiWanBonobi/PP1/blob/main/README.md) and [PP2](https://github.com/ObiWanBonobi/PP2/tree/main). I also got some ideas from [Gary Dolan's readme](https://github.com/GaryDolan/ci-p3-pokemon-portfolio).
+- <b>README</b> : I copied some of the Readme code from my previous projects [PP1](https://github.com/ObiWanBonobi/PP1/blob/main/README.md) and [PP2](https://github.com/ObiWanBonobi/PP2/tree/main). I also got some ideas from [Gary Dolan's readme](https://github.com/GaryDolan/ci-p3-pokemon-portfolio). I got my table code from the [Codecademy](https://www.codecademy.com/resources/docs/markdown/tables) website. I got my emojis from this [Github page](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).
 - <b>Python code</b> : I got a better understanding about Python code from these forums, websites and people :
   * I learned more about enumerate from the [Geeks for Geeks](https://www.geeksforgeeks.org/enumerate-in-python/) website.
   * I got help with a better understanding of Python from my brother in law [Steffen Bjerkenås](https://github.com/stebje). He told me I needed to change my words list and country list to a text and CSV files and move them into a seperate file for better readability.
