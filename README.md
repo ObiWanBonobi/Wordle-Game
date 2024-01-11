@@ -362,5 +362,6 @@ You can see deployed game [here](https://wordle-bo-abd372c9b403.herokuapp.com/).
   * I learned a lot from the Code Institutes project [Love Sandwiches](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode).
   * I learned more about how to append a rom from this [stackoverflow](https://stackoverflow.com/questions/68859429/how-to-append-data-in-a-googlesheet-using-python) forum.
   * [Quora](https://www.quora.com/I%E2%80%99m-new-to-Python-how-can-I-write-a-yes-no-question) forum helped me with my y or n question, that wasn't working.
+  * [Delete last line](https://linustechtips.com/topic/1257798-delete-last-line-in-console-python-3/) function was found on the linustechtips website.
 
 - <b>Most of my credit goes to the Code Institute program where I made notes on every section and got most of my ideas and code from there.</b>

@@ -1,6 +1,7 @@
 """Google sheets import and library imports"""
 import random
 import sys
+from time import sleep
 import gspread
 
 from google.oauth2.service_account import Credentials
@@ -142,6 +143,7 @@ def play_wordle(name, country):
                 "[on green]    Congrats, you guessed the correct word!    "
                 )
             update_leaderboard(name, country, score)
+            show_leaderboard()
             break
 
     else:
@@ -150,6 +152,7 @@ def play_wordle(name, country):
             f"[on red]    You lost. The correct word was {computer_choice}    "
         )
         update_leaderboard(name, country, score)
+        show_leaderboard()
 
 
 def play_game_again():
@@ -238,9 +241,10 @@ def check_user_input(user):
         try:
             if user not in words:
                 raise ValueError(
-                    "Input needs to be a real 5 alphabetical letter word")
+                    "Input needs to be a real 5 letter word,")
         except ValueError as e:
-            print(f"Invalid word : \n{e}\nPlease try again.\n")
+            print(f"Invalid word : {e} try again.")
+            delete_error_message()
             return False
 
     return True
@@ -302,6 +306,15 @@ def get_leaderboard():
     play_game_again()
 
 
+def delete_error_message():
+    """
+    Deletes the last line in the terminal for better visuals
+    """
+    sleep(2.5)
+    sys.stdout.write("\x1b[1A")
+    sys.stdout.write("\x1b[2K")
+
+
 def main():
     """
     Starts the wordle game functions.
@@ -309,7 +322,6 @@ def main():
     display_wordle()
     show_rules()
     get_user_input()
-    show_leaderboard()
 
 
 main()
