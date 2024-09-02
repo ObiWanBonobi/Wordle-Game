@@ -2,8 +2,6 @@
 
 ![Wordle gif](assets/gif/gif_wordle.gif)
 
-[Click on this link to visit the Github page](https://obiwanbonobi.github.io/PP3/)
-
 [Click on this link to play the game on Heroku](https://wordle-bo-abd372c9b403.herokuapp.com/)
 
 <br>
